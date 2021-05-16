@@ -1,52 +1,37 @@
 #include "main.h"
 
-void ReadFile(FILE *fp){
-	char *token;
-	const char virgula[] = ",";
-	char line[128];
-	char name[35];
-	char code[4];
-	char continent[15];
-	int population;
+Country *ReadFile(Country *listhead,char *line){
+		char *token;
+		char content[9][70] = {{0}};
+		Country *NewCountry = NULL;
+		int i = 0;
 
 
-	/*Usa-se um fgets para ignorar o cabeçalho*/
-	fgets(line,128,fp);
-	
-
-	int i = 0;
-
-	while(fgets(line,128,fp) != NULL){
-		token = strtok(line,virgula);
-		i=0;
-		printf("=============PAÍS===============\n");
-
+		token = strtok_costum(&line,',');
 		/*Leitura de uma linha do ficheiro e analise dos dados*/
-		while(token != NULL){
-				if(i == 0){
-					strcpy(name,token);
-				}
-				if(i == 1){
-					strcpy(code,token);
-				}
-				if(i == 2){
-					strcpy(continent,token);
-				}
-				if(i == 3){
-					population = atoi(token);
-				}
-
-			token = strtok(NULL,virgula);
-			i++;
-
+		while(*token != '\0'){
+			strcpy(content[i],token);
+			free(token);
+			if(*line == ',' && *(line-1) == ','){
+				i++;
+				line++;
+			}
+			token = strtok_costum(&line,',');
+			if(i != 8)
+				i++;
 		}
-		printf("\n");
-    	printf("%s\n",name);
-		printf("%.3s\n",code);
-		printf("%s\n",continent);
-		printf("%d\n",population);
+			free(token);
 
-	}
+			/*Se a lista estiver vazia criar um elemento*/
+			if(listhead == NULL){
+				NewCountry = CreateStruct();
+			 	StoreContentCountry(content,NewCountry);			
+			}
+			else{
+				/*verificar o resto do conteudo que pertence ao país*/
+				return 0;
+			}
 
+	return NewCountry;	
 
 }

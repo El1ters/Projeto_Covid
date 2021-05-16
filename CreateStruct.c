@@ -1,12 +1,12 @@
 #include "main.h"
 
-Country *CreateStruct(int number_of_countries){
-
+Country *CreateStruct(){
 	Country *NewCountry;
-	if((NewCountry = calloc(1,sizeof(Country))) == 0){
-		printf("Could not complete the allocation");
+
+	if((NewCountry = calloc(1,sizeof(Country))) == NULL){
+		printf("could not allocate memory");
 		exit(EXIT_FAILURE);
 	}
-		NewCountry -> next = NULL;
+
 	return NewCountry;
 }
