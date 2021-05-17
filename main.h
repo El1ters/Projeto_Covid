@@ -30,7 +30,6 @@ typedef struct _Year{
 }Year;
 
 
-
 /*Estrutura da lista principal*/
 typedef struct _Country{
 	char name[30];
@@ -42,13 +41,12 @@ typedef struct _Country{
 	
 }Country;
 
-
-
 /*Declaração de Funçoes*/
 Country *ReadFile(Country *listhead,char *line);
 char *strtok_costum(char **string,char const remove);
 Country *CreateStruct();
 void StoreContentCountry(char content[9][70],Country *country);
-Country *CriaListaPeloTopo(Country *listhead,Country *country_inserted);
+Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted);
 void printLista(Country *listhead);
+int CompareName(Country *listhead,char *string);
 #endif

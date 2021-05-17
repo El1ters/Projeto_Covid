@@ -6,7 +6,6 @@ Country *ReadFile(Country *listhead,char *line){
 		Country *NewCountry = NULL;
 		int i = 0;
 
-
 		token = strtok_costum(&line,',');
 		/*Leitura de uma linha do ficheiro e analise dos dados*/
 		while(*token != '\0'){
@@ -22,8 +21,8 @@ Country *ReadFile(Country *listhead,char *line){
 		}
 			free(token);
 
-			/*Se a lista estiver vazia criar um elemento*/
-			if(listhead == NULL){
+
+			if(CompareName(listhead,content[0]) == 0){
 				NewCountry = CreateStruct();
 			 	StoreContentCountry(content,NewCountry);			
 			}
@@ -31,6 +30,7 @@ Country *ReadFile(Country *listhead,char *line){
 				/*verificar o resto do conteudo que pertence ao país*/
 				return 0;
 			}
+
 
 	return NewCountry;	
 
