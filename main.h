@@ -6,7 +6,7 @@
 #include<stdlib.h>
 #include<string.h>
 
-/*Estrutura de uma lista terciária*/
+/*Tipo de Estrutura para uma lista terciária que irá conter os dados relativos a cada semana*/
 typedef struct _Week{
 	int week;
 	int indicator_cases;  /*1 se fo for caso 0 se não for*/
@@ -21,8 +21,8 @@ typedef struct _Week{
 }Week;
 
 
-/*Estrutura de uma lista secundária*/
-typedef struct _Year{	
+/*Tipo de Estrutura para uma lista secundária que irá conter os dados relativos a cada ano*/
+typedef struct _Year{
 	int year;
 	struct _Year *next_year;
 	Week *next_week;
@@ -30,18 +30,18 @@ typedef struct _Year{
 }Year;
 
 
-/*Estrutura da lista principal*/
+/*Tipo de Estrutura para uma Lista principal que irá conter os dados relativos a cada país*/
 typedef struct _Country{
 	char name[30];
 	char country_code[4];
 	char continent[15];
 	int population;
 	struct _Country *next_country;
-	Year *next_year; 
-	
+	Year *next_year;
+
 }Country;
 
-/*Declaração de Funçoes*/
+/*Declaração de Funções*/
 Country *ReadFile(Country *listhead,char *line);
 char *strtok_costum(char **string,char const remove);
 Country *CreateStruct();
