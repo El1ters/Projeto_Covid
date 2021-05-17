@@ -14,27 +14,30 @@ int main(int argc,char *argv[]){
 	/*Usa-se um fgets para ignorar o cabeçalho*/
 	fgets(line,128,fp);
 	while(fgets(line,128,fp) != NULL){
-		newcountry = ReadFile(ListHead,line);
-
-		if(ReadFile(ListHead,line) != 0){
-			ListHead = CriaListaPeloTopo(ListHead,newcountry);
+		if((newcountry = ReadFile(ListHead,line)) != 0){
+			ListHead = CriaListaPorBaixo(ListHead,newcountry);
 		}
 		
 	}
 	printLista(ListHead);
+	free_list(ListHead);
 
 	fclose(fp);
 	return 0;
 }
 
 
-Country *CriaListaPeloTopo(Country *listhead,Country *country_inserted){		
+Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted){
+	Country *Aux;
+	
+
 	if(listhead == NULL){
 		listhead = country_inserted;
 	}
 	else{
-		country_inserted -> next_country = listhead;
-		listhead = country_inserted;
+		for(Aux = listhead;Aux->next_country != NULL;Aux = Aux->next_country);
+		country_inserted -> next_country = NULL;
+		Aux->next_country = country_inserted;
 	}
 
 	return listhead;
@@ -43,12 +46,24 @@ Country *CriaListaPeloTopo(Country *listhead,Country *country_inserted){
 
 void printLista(Country *listhead){
 	Country *Aux;
+
+	/*Aux no fim de cado ciclo aponta para a lista seguinte*/
 	for(Aux = listhead; Aux != NULL; Aux = Aux->next_country){
-		printf("%s\n",Aux->name);
-		printf("%s\n",Aux->country_code);
-		printf("%s\n",Aux->continent);
-		printf("%d\n",Aux->population);
+		printf("===============Lista=================\n");
+		printf("Name: %s\n",Aux->name);
+		printf("Code: %s\n",Aux->country_code);
+		printf("Continent: %s\n",Aux->continent);
+		printf("population: %d\n",Aux->population);
 	}
 	
+}
+void free_list(Country *listhead){
+	Country *Aux;
+	Aux = listhead;
+	while(Aux != NULL){
+		listhead = Aux->next_country;
+		free(Aux);
+		Aux = listhead;
+	}
 }
 
