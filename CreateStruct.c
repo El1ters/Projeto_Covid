@@ -1,5 +1,7 @@
 #include "main.h"
 
+/*Esta função serve apenas para alocar memória suficiente para criar uma estrutura do
+tipo Country necessária à criação dos nós da lista principal*/
 Country *CreateStruct(){
 	Country *NewCountry;
 
