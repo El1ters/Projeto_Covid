@@ -1,20 +1,21 @@
 #include "main.h"
 
+/*Função que permite retirar do ficheiro fornecido pelo professor,em forma de string, os dados entre as vírgulas*/
 char *strtok_costum(char **string,char const remove){
-	char *result = calloc(75,sizeof(char));
+
+	char *result = calloc(75,sizeof(char));/*Alocação de memória*/
 	int i=0;
 
-	/*iterar n vezes até encontrar o caracter que desejamos remover*/
+	/*Iterar n vezes até encontrar o caractér não desejado, dando retorno em forma de string de todos os caracteres encontrados
+	até ao não desejado*/
 	for(i = 0; **string != remove;i++, (*string)++){
 		if(**string == '\0'){
 			return result;
 		}
-		result[i] = **string;		
+		result[i] = **string;
 	}
-	/*aumentar a posiçao do ponteiro para saltar a o caracter nao desejado na string*/
-	(*string)++;
-	
+
+	(*string)++; /*Incrementar a posição do ponteiro para saltar o caractér não desejado na string*/
 
 	return result;
 }
-
