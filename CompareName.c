@@ -1,5 +1,9 @@
 #include "main.h"
 
+/*Esta função serve para comparar duas strings, sendo essencial para que no ReadFile.c se saiba se se tem de criar um
+novo nó da lista princiapl ou não, pois se já exisitir um nó respetivo a um país, ao serem percorridas as diferentes linhas
+do ficheiro fornecido pelo professor quando se encontra outra vez dados fixos relativos ao mesmo país não deve ser cirado um novo
+nó, passando-se para a linha seguinte e fazendo a mesma verificação*/
 int CompareName(Country *listhead,char *string){
 	Country *AuxH;
 
