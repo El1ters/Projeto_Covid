@@ -49,4 +49,5 @@ void StoreContentCountry(char content[9][70],Country *country);
 Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted);
 void printLista(Country *listhead);
 int CompareName(Country *listhead,char *string);
+void free_list(Country *listhead);
 #endif
