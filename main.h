@@ -6,7 +6,7 @@
 #include<stdlib.h>
 #include<string.h>
 
-/*Tipo de Estrutura para uma lista terciária que irá conter os dados relativos a cada semana*/
+/*Estrutura de uma lista terciária*/
 typedef struct _Week{
 	int week;
 	int indicator_cases;  /*1 se fo for caso 0 se não for*/
@@ -21,8 +21,8 @@ typedef struct _Week{
 }Week;
 
 
-/*Tipo de Estrutura para uma lista secundária que irá conter os dados relativos a cada ano*/
-typedef struct _Year{
+/*Estrutura de uma lista secundária*/
+typedef struct _Year{	
 	int year;
 	struct _Year *next_year;
 	Week *next_week;
@@ -30,24 +30,30 @@ typedef struct _Year{
 }Year;
 
 
-/*Tipo de Estrutura para uma Lista principal que irá conter os dados relativos a cada país*/
+/*Estrutura da lista principal*/
 typedef struct _Country{
 	char name[30];
 	char country_code[4];
 	char continent[15];
 	int population;
 	struct _Country *next_country;
-	Year *next_year;
-
+	Year *next_year; 
+	
 }Country;
 
-/*Declaração de Funções*/
-Country *ReadFile(Country *listhead,char *line);
+/*Declaração de Funçoes*/
+Country *ReadFile(Country **listhead,char *line);
 char *strtok_costum(char **string,char const remove);
-Country *CreateStruct();
+Country *CreateCountryStruct();
+Year *CreateYearStruct();
+Week *CreateWeekStruct();
 void StoreContentCountry(char content[9][70],Country *country);
 Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted);
 void printLista(Country *listhead);
 int CompareName(Country *listhead,char *string);
+int CompareYear(Country *listhead,int year,char *string1);
+int CompareWeek(Country *listhead,int year,int week,char *string2);
 void free_list(Country *listhead);
+Country *InsertSubList(Country *listhead,char *name,Year *NewYear);
+Country *InsertThirdList(Country *listhead,Week *NewWeek,char *string,int year);
 #endif

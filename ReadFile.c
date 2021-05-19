@@ -1,49 +1,70 @@
 #include "main.h"
 
+
 /*Esta Função irá servir para lermos os dados do ficheiro fornecido pelo professor -> vai receber como argumentos
 um ponteiro que aponta para uma estrutura do tipo da dos Países e que irá permitir encadear os nós da lista principal
 e um ponteiro do tipo Char que apontará para a linha do ficheiro da qual estamos a retirar a informção*/
-Country *ReadFile(Country *listhead,char *line){
+Country *ReadFile(Country **listhead,char *line){
+		char *token;
+		char content[9][70] = {{0}};
+		/*Inicialização de um ponteiro que aponta para uma estrutura do tipo Country que, por
+        sua vez conterá a informação referente a um nó da lista principal -> o valor para
+        o qual este ponteiro aponta será o valor retornado pela função*/
+		Country *NewCountry = NULL;
+		Year *NewYear = NULL;
+		Week *NewWeek = NULL;
+		int year;
+		int week;
+		int i = 0;
 
-		char *token; /*Ponteiro do tipo Char que irá servir para guardar os dados das colunas*/
-		char content[9][70] = {{0}}; /*Criação de um vetor do tipo Char que contém espaço para cada uma das 9 colunas
-                                       presentes no ficheiro do professor, sendo que cada uma delas tem capacidade para guardar
-                                       no máximo dados com 70 caracteres*/
-		Country *NewCountry = NULL; /*Inicialização de um ponteiro que aponta para uma estrutura do tipo Country que, por
-                                      sua vez conterá a informação referente a um nó da lista principal -> o valor para
-                                      o qual este ponteiro aponta será o valor retornado pela função*/
-		int i = 0; /*Inicialização de uma variável auxiliar*/
-
-		token = strtok_costum(&line,','); /*Permite passar para a posição de memória, para a qual o ponteiro
-		token está a apontar, os dados de uma linha do ficheiro fornecido pelo professor, ignorando as vírgulas
-		que estão a separar o conteúdo das diferentes colunas*/
-
+		token = strtok(line,",");
 		/*O ciclo while que se segue permite percorrer todos os dados referentes a cada linha do ficheiro fornecido
 		copiando-os para uma variável auxiliar denominada de "content" */
-		while(*token != '\0'){
+		while(token != NULL){
 			strcpy(content[i],token);
-			free(token);
-			if(*line == ',' && *(line-1) == ','){
-				i++;
-				line++;
-			}
-			token = strtok_costum(&line,',');
-			if(i != 8)
+			token = strtok(NULL,",");
 				i++;
 		}
-			free(token);
+			if(i == 8){
+				strcpy(content[8],content[7]);
+				strcpy(content[7],"\0");
+			}
+			strtok(content[8],"\n");
+			sscanf(content[6],"%d-%d",&year,&week);
+			/*Este ciclo if que se segue irá fazer a comparação com o conteúdo retirado acima das linhas do ficheiro de modo
+        	a verificar se já existe ou não um nó referente a um dado país. Se não existir, então será criado um*/
+			if(CompareName(*listhead,content[0]) == 0){
+				NewCountry = CreateCountryStruct();
+			 	StoreContentCountry(content,NewCountry);
+			 	
 
-        /*Este ciclo if que se segue irá fazer a comparação com o conteúdo retirado acima das linhas do ficheiro de modo
-        a verificar se já existe ou não um nó referente a um dado país. Se não existir, então será criado um*/
-        if(CompareName(listhead,content[0]) == 0){
-            NewCountry = CreateStruct();
-            StoreContentCountry(content,NewCountry);
-        }
-        else{
-            return 0;  /*Verificar o resto do conteúdo que pertence ao país*/
-        }
+			 	if(CompareYear(*listhead,year,content[0]) == 0){
+			 		NewYear = CreateYearStruct();
+			 		NewCountry->next_year = NewYear; 
+			 		NewYear->year = year;	
+			 	}
+			 	if(CompareWeek(*listhead,year,week,content[0]) == 0){
+						NewWeek = CreateWeekStruct();
+						NewYear->next_week = NewWeek;
+						NewWeek->week = week;
+			 	}
+			}else{
+				if(CompareYear(*listhead,year,content[0]) == 0){
+					NewYear = CreateYearStruct();
+					NewYear->year = year;
+					*listhead = InsertSubList(*listhead,content[0],NewYear);
+				}
+
+				if(CompareWeek(*listhead,year,week,content[0]) == 0){
+					NewWeek = CreateWeekStruct();
+					NewWeek->week = week;
+					*listhead = InsertThirdList(*listhead,NewWeek,content[0],year);
+				}
+				
+					
+				return NULL;
+			}
 
 
-	return NewCountry;
-
+	return NewCountry;	
 }
