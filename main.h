@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <getopt.h>
+#include <unistd.h>
 
 /*Estrutura de uma lista terciária*/
 typedef struct _Week{
@@ -22,7 +24,7 @@ typedef struct _Week{
 
 
 /*Estrutura de uma lista secundária*/
-typedef struct _Year{	
+typedef struct _Year{
 	int year;
 	struct _Year *next_year;
 	Week *next_week;
@@ -37,8 +39,8 @@ typedef struct _Country{
 	char continent[15];
 	int population;
 	struct _Country *next_country;
-	Year *next_year; 
-	
+	Year *next_year;
+
 }Country;
 
 /*Declaração de Funçoes*/
@@ -55,4 +57,6 @@ int CompareWeek(Country *listhead,int year,int week,char *string2);
 void free_list(Country *listhead);
 Country *InsertSubList(Country *listhead,char *name,Year *NewYear);
 Country *InsertThirdList(Country *listhead,Week *NewWeek,char *string,int year);
+void CommandLine(int argc, char *argv[], char *L, char *S, char *D, char *P, char *i, char *o);
+void CommandLineHelp();
 #endif
