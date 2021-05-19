@@ -4,8 +4,6 @@ Country *InsertSubList(Country *listhead,char *string,Year *NewYear){
 	Country *AuxH;
 	Year *AuxY;
 	for(AuxH = listhead; AuxH != NULL; AuxH = AuxH->next_country){
-		//printf("%p\n",AuxH->next_year);
-		//printf("%d\n",AuxY->year);
 		if(strcmp(AuxH->name,string) == 0){
 			
 			AuxY = AuxH->next_year;

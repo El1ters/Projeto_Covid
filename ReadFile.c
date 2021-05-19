@@ -45,8 +45,15 @@ Country *ReadFile(Country **listhead,char *line){
 			 	}
 			 	if(CompareWeek(*listhead,year,week,content[0]) == 0){
 						NewWeek = CreateWeekStruct();
-						NewYear->next_week = NewWeek;
+
 						NewWeek->week = week;
+						if(strcmp(content[4],"cases") == 0){
+							NewWeek->weekly_count_cases = atoi(content[5]);
+							NewWeek->rate_14_day_cases = atof(content[7]);
+							NewWeek->comulative_count_cases = atoi(content[8]);
+						}
+					
+						NewYear->next_week = NewWeek;
 			 	}
 			}else{
 				if(CompareYear(*listhead,year,content[0]) == 0){
@@ -58,6 +65,11 @@ Country *ReadFile(Country **listhead,char *line){
 				if(CompareWeek(*listhead,year,week,content[0]) == 0){
 					NewWeek = CreateWeekStruct();
 					NewWeek->week = week;
+					if(strcmp(content[4],"cases") == 0){
+							NewWeek->weekly_count_cases = atoi(content[5]);
+							NewWeek->rate_14_day_cases = atof(content[7]);
+							NewWeek->comulative_count_cases = atoi(content[8]);
+					}
 					*listhead = InsertThirdList(*listhead,NewWeek,content[0],year);
 				}
 				

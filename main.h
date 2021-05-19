@@ -2,9 +2,9 @@
 #define Covid19Proj
 
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*Estrutura de uma lista terciária*/
 typedef struct _Week{
@@ -43,7 +43,6 @@ typedef struct _Country{
 
 /*Declaração de Funçoes*/
 Country *ReadFile(Country **listhead,char *line);
-char *strtok_costum(char **string,char const remove);
 Country *CreateCountryStruct();
 Year *CreateYearStruct();
 Week *CreateWeekStruct();

@@ -38,7 +38,6 @@ simplesmente ligada*/
 Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted){
 	Country *Aux;
 	
-
 	if(listhead == NULL){
 		listhead = country_inserted;
 	}
@@ -68,6 +67,15 @@ void printLista(Country *listhead){
 			printf("Ano: %d\n",AuxY->year);
 			for(AuxW = AuxY->next_week; AuxW != NULL; AuxW = AuxW->next_week){
 				printf("\tSemana: %d\n",AuxW->week);
+				printf("\t Casos:\n");
+				printf("\t  weekly_count:%d\n",AuxW->weekly_count_cases);
+				printf("\t  rate_14_day:%.3f\n",AuxW->rate_14_day_cases);
+				printf("\t  comulative_count:%d\n",AuxW->comulative_count_cases);
+				printf("\t Mortes:\n");
+				printf("\t  weekly_count:%d\n",AuxW->weekly_count_deaths);
+				printf("\t  rate_14_day:%.3f\n",AuxW->rate_14_day_deaths);
+				printf("\t  comulative_count:%d\n",AuxW->comulative_count_deaths);
+
 			}
 
 		}
