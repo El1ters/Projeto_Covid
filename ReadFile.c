@@ -71,6 +71,8 @@ Country *ReadFile(Country **listhead,char *line){
 							NewWeek->comulative_count_cases = atoi(content[8]);
 					}
 					*listhead = InsertThirdList(*listhead,NewWeek,content[0],year);
+				}else{
+					
 				}
 				
 					
