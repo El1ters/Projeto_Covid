@@ -21,7 +21,6 @@ Country *InsertSubList(Country *listhead,char *string,Year *NewYear){
 Country *InsertThirdList(Country *listhead,Week *NewWeek,char *string,int year){
 	Country *AuxH;
 	Year *AuxY;
-	Week *AuxW;
 	for(AuxH = listhead; AuxH != NULL; AuxH = AuxH->next_country){
 		if(strcmp(AuxH->name,string) == 0){
 			for(AuxY = AuxH->next_year; AuxY != NULL ;AuxY = AuxY->next_year){

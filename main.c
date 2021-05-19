@@ -11,7 +11,7 @@ int main(int argc,char *argv[]){
 
 	FILE *fp;
 	/*Abertura para leitura do ficheiro criado que irá ter o título indicado*/
-	fp = fopen("covid19_w_t01.csv","r");
+	fp = fopen("covid19_w_tf01.csv","r");
 
 	char line[128]; 
 
@@ -67,7 +67,7 @@ void printLista(Country *listhead){
 		for(AuxY = Aux->next_year; AuxY != NULL ;AuxY = AuxY->next_year){
 			printf("Ano: %d\n",AuxY->year);
 			for(AuxW = AuxY->next_week; AuxW != NULL; AuxW = AuxW->next_week){
-				printf("Semana: %d\n",AuxW->week);
+				printf("\tSemana: %d\n",AuxW->week);
 			}
 
 		}
@@ -77,11 +77,20 @@ void printLista(Country *listhead){
 
 void free_list(Country *listhead){
 	Country *Aux;
-	Aux = listhead;
-	while(Aux != NULL){
-		listhead = Aux->next_country;
-		free(Aux);
-		Aux = listhead;
-	}
-}
+	Year *AuxY;
+	Week *AuxW;
 
+	for(Aux = listhead;Aux != NULL;Aux = listhead){
+		listhead = Aux->next_country;
+		for(AuxY = Aux->next_year; AuxY != NULL;AuxY = Aux->next_year){	
+			for(AuxW = AuxY->next_week;AuxW != NULL;AuxW = AuxY->next_week){
+				AuxY->next_week = AuxW->next_week;
+				free(AuxW);
+			}
+			Aux->next_year = AuxY->next_year;
+			free(AuxY);
+		}
+		free(Aux);
+	}
+
+}
