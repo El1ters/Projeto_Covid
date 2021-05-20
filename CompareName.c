@@ -51,3 +51,12 @@ int CompareWeek(Country *listhead,int year,int week,char *string){
 
 	return 0;
 }
+
+void RemoveContinent(Country *listhead,char *string){
+	Country *Aux;
+	for(Aux = listhead; Aux != NULL; Aux = Aux->next_country){
+		if(strcmp(Aux->continent,string) != 0){
+			
+		}
+	}
+}
