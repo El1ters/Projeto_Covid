@@ -23,7 +23,7 @@ void CommandLine(int argc, char *argv[], char *L, char *S, char *D, char *P, cha
         break;
 
         case 'L':
-            strcpy(L_aux,optarg);
+            strcpy(L,optarg);
         break;
 
         case 'S':
@@ -46,12 +46,7 @@ void CommandLine(int argc, char *argv[], char *L, char *S, char *D, char *P, cha
 
         break;
       }
-      L=L_aux;
-      S=S_aux;
-      D=D_aux;
-      P=P_aux;
-      i=i_aux;
-      o=o_aux;
+      
 	}
 }
 

@@ -1,7 +1,9 @@
 #include "main.h"
 
-int main(int argc,char *argv[]){
 
+int main(int argc,char *argv[]){
+	char L[10], S[10],D[10],P[10],i[10],o[10];
+	CommandLine(argc,argv,L,S,D,P,i,o);
 	/*Inicialização de um ponteiro que aponta para o tipo de estrutura Country -> este
     ponteiro corresponde à cabeça da lista principal (a que contém os nomes dos diferentes países*/
 	Country *ListHead = NULL;
@@ -11,7 +13,10 @@ int main(int argc,char *argv[]){
 
 	FILE *fp;
 	/*Abertura para leitura do ficheiro criado que irá ter o título indicado*/
-	fp = fopen("covid19_w_tf01.csv","r");
+	if((fp = fopen("covid19_w_tf01.csv","r")) == NULL){
+		printf("could not open the file\n");
+		exit(EXIT_FAILURE);
+	}
 
 	char line[128]; 
 
@@ -58,7 +63,7 @@ void printLista(Country *listhead){
 
 	/*Aux no fim de cado ciclo aponta para a lista seguinte*/
 	for(Aux = listhead; Aux != NULL; Aux = Aux->next_country){
-		printf("===============Lista=================\n");
+		printf("===============País=================\n");
 		printf("Name: %s\n",Aux->name);
 		printf("Code: %s\n",Aux->country_code);
 		printf("Continent: %s\n",Aux->continent);
@@ -67,10 +72,10 @@ void printLista(Country *listhead){
 			printf("Ano: %d\n",AuxY->year);
 			for(AuxW = AuxY->next_week; AuxW != NULL; AuxW = AuxW->next_week){
 				printf("\tSemana: %d\n",AuxW->week);
-				printf("\t Casos:\n");
-				printf("\t  weekly_count:%d\n",AuxW->weekly_count_cases);
-				printf("\t  rate_14_day:%.3f\n",AuxW->rate_14_day_cases);
-				printf("\t  comulative_count:%d\n",AuxW->comulative_count_cases);
+				//printf("\t Casos:\n");
+				//printf("\t  weekly_count:%d\n",AuxW->weekly_count_cases);
+				//printf("\t  rate_14_day:%.3f\n",AuxW->rate_14_day_cases);
+				//printf("\t  comulative_count:%d\n",AuxW->comulative_count_cases);
 				printf("\t Mortes:\n");
 				printf("\t  weekly_count:%d\n",AuxW->weekly_count_deaths);
 				printf("\t  rate_14_day:%.3f\n",AuxW->rate_14_day_deaths);

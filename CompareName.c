@@ -7,8 +7,6 @@ do ficheiro fornecido pelo professor quando se encontra outra vez dados fixos re
 nó, passando-se para a linha seguinte e fazendo a mesma verificação*/
 int CompareName(Country *listhead,char *string){
 	Country *AuxH;
-	//Year *AuxY;
-
 	if(listhead == NULL){
 		return 0;
 	}

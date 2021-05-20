@@ -72,7 +72,7 @@ Country *ReadFile(Country **listhead,char *line){
 					}
 					*listhead = InsertThirdList(*listhead,NewWeek,content[0],year);
 				}else{
-					
+					StoreContentWeek(*listhead,content[0],year,week,atoi(content[5]),atof(content[7]),atoi(content[8]));
 				}
 				
 					
