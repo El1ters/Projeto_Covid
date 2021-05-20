@@ -78,7 +78,5 @@ Country *ReadFile(Country **listhead,char *line){
 					
 				return NULL;
 			}
-
-
 	return NewCountry;	
 }

@@ -32,7 +32,6 @@ void printLista(Country *listhead){
 	Year *AuxY;
 	Week *AuxW;
 
-	/*Aux no fim de cado ciclo aponta para a lista seguinte*/
 	for(Aux = listhead; Aux != NULL; Aux = Aux->next_country){
 		printf("===============Lista=================\n");
 		printf("Name: %s\n",Aux->name);
@@ -42,12 +41,12 @@ void printLista(Country *listhead){
 		for(AuxY = Aux->next_year; AuxY != NULL ;AuxY = AuxY->next_year){
 			printf("Ano: %d\n",AuxY->year);
 			for(AuxW = AuxY->next_week; AuxW != NULL; AuxW = AuxW->next_week){
-				printf("\tSemana: %d\n",AuxW->week);
-				printf("\t Casos:\n");
+				printf("  Semana: %d\n",AuxW->week);
+				printf("\tCasos:\n");
 				printf("\t  weekly_count:%d\n",AuxW->weekly_count_cases);
 				printf("\t  rate_14_day:%.3f\n",AuxW->rate_14_day_cases);
 				printf("\t  comulative_count:%d\n",AuxW->comulative_count_cases);
-				printf("\t Mortes:\n");
+				printf("\tMortes:\n");
 				printf("\t  weekly_count:%d\n",AuxW->weekly_count_deaths);
 				printf("\t  rate_14_day:%.3f\n",AuxW->rate_14_day_deaths);
 				printf("\t  comulative_count:%d\n",AuxW->comulative_count_deaths);
