@@ -58,6 +58,6 @@ int CompareWeek(Country *listhead,int year,int week,char *string2);
 void free_list(Country *listhead);
 Country *InsertSubList(Country *listhead,char *name,Year *NewYear);
 Country *InsertThirdList(Country *listhead,Week *NewWeek,char *string,int year);
-void CommandLine(int argc, char *argv[], char *L, char *S, char *D, char *P, char *i, char *o);
+void CommandLine(int argc, char *argv[]);
 void CommandLineHelp();
 #endif

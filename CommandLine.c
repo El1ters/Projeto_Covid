@@ -4,7 +4,7 @@ void CommandLine(int argc, char *argv[])
 {
 
     int opt=0;
-    char L[10], S[10], D[10], P[10], i[10], o[10];
+    char L[10] = "all", S[10] = "0", D[10] = "0" , P[10] = "0", i[10] = "0", o[10] = "0";
 
     while((opt = getopt(argc, argv,"hL:S:D:P:i:o: ")) != -1)
     {
@@ -117,5 +117,3 @@ void CommandLineHelp()
     printf("-o nome_do_ficheiro.csv -> Escrita de dados em ficheiro de texto sendo que o nome_do_ficheiro é introduzido pelo utilizador.\n");
     printf("-o nome_do_ficheiro.data -> Escrita de dados em ficheiro binário sendo que o nome_do_ficheiro é introduzido pelo utilizador.\n");
 }
-
-
