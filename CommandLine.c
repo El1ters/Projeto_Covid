@@ -78,9 +78,9 @@ void CommandLine(int argc, char *argv[])
     {
         printLista(ListHead);
     }
-    else if (strcmp(L,"continente")==0)
-    {
-        printf("%s", L);
+    else if (strcmp(L,"Africa") == 0)
+    {   ListHead = RemoveContinent(ListHead,L);
+        printLista(ListHead);
 
     }
     else
@@ -88,7 +88,6 @@ void CommandLine(int argc, char *argv[])
         printf("Erro: comando inserido inválido. \n");
     }
     free_list(ListHead);
-
     fclose(fp);
 
 }

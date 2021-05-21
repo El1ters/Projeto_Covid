@@ -63,7 +63,7 @@ void free_list(Country *listhead){
 	Year *AuxY;
 	Week *AuxW;
 
-	for(Aux = listhead;Aux != NULL;Aux = listhead){
+	for(Aux = listhead;Aux != NULL; Aux = listhead){
 		listhead = Aux->next_country;
 		for(AuxY = Aux->next_year; AuxY != NULL;AuxY = Aux->next_year){
 			for(AuxW = AuxY->next_week;AuxW != NULL;AuxW = AuxY->next_week){

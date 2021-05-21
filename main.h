@@ -55,6 +55,7 @@ void printLista(Country *listhead);
 int CompareName(Country *listhead,char *string);
 int CompareYear(Country *listhead,int year,char *string1);
 int CompareWeek(Country *listhead,int year,int week,char *string2);
+Country *RemoveContinent(Country *listhead,char string[10]);
 void free_list(Country *listhead);
 Country *InsertSubList(Country *listhead,char *name,Year *NewYear);
 Country *InsertThirdList(Country *listhead,Week *NewWeek,char *string,int year);

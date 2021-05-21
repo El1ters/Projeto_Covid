@@ -35,4 +35,3 @@ Country *InsertThirdList(Country *listhead,Week *NewWeek,char *string,int year){
 	return listhead;
 
 }
-

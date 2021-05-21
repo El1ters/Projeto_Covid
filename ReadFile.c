@@ -61,7 +61,6 @@ Country *ReadFile(Country **listhead,char *line){
 					NewYear->year = year;
 					*listhead = InsertSubList(*listhead,content[0],NewYear);
 				}
-
 				if(CompareWeek(*listhead,year,week,content[0]) == 0){
 					NewWeek = CreateWeekStruct();
 					NewWeek->week = week;
