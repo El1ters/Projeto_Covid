@@ -78,9 +78,9 @@ void CommandLine(int argc, char *argv[])
     {
         printLista(ListHead);
     }
-    else if (strcmp(L,"Africa") == 0)
-    {   ListHead = RemoveContinent(ListHead,L);
-        printLista(ListHead);
+    else if (strcmp(L,"Europe") == 0)
+    {   
+        PrintContinentOnly(ListHead,L);
 
     }
     else

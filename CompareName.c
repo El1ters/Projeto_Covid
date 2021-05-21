@@ -5,7 +5,7 @@
 novo nó da lista princiapl ou não, pois se já exisitir um nó respetivo a um país, ao serem percorridas as diferentes linhas
 do ficheiro fornecido pelo professor quando se encontra outra vez dados fixos relativos ao mesmo país não deve ser cirado um novo
 nó, passando-se para a linha seguinte e fazendo a mesma verificação*/
-int CompareName(Country *listhead,char *string/*char *continent*/){
+int CompareName(Country *listhead,char *string){
 	Country *AuxH;
 	if(listhead == NULL){
 		return 0;
@@ -15,9 +15,7 @@ int CompareName(Country *listhead,char *string/*char *continent*/){
 			if(strcmp(AuxH->name,string) == 0){
 				return 1;
 			}
-			/*if(strcmp(AuxH->continent,continent) != 0){
-				return 1;
-			}*/
+			
 		}
 
 	}
@@ -53,32 +51,4 @@ int CompareWeek(Country *listhead,int year,int week,char *string){
 	}
 
 	return 0;
-}
-
-Country *RemoveContinent(Country *listhead,char string[10]){
-	Country *AuxH, *AuxT;
-	Year *AuxY;
-	Week *AuxW;
-	AuxH = listhead;
-	AuxT = listhead->next_country;
-		while(AuxT != NULL){
-			if(strcmp(AuxT->continent,string) == 0){
-				for(AuxY = AuxT->next_year;AuxY != NULL;AuxY = AuxY->next_year){
-					for(AuxW = AuxY->next_week; AuxW != NULL;AuxW = AuxW->next_week){
-						AuxY->next_week = AuxW->next_week;
-						free(AuxW);
-						
-					}
-					AuxT->next_year = AuxY->next_year;
-					free(AuxY);
-					
-				}
-				AuxH->next_country = AuxT->next_country;
-				free(AuxT);	
-			}
-				AuxH = AuxT;
-				AuxT = AuxT->next_country;
-
-		}
-	return listhead;
 }
