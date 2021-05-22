@@ -62,4 +62,6 @@ Country *InsertSubList(Country *listhead,char *name,Year *NewYear);
 Country *InsertThirdList(Country *listhead,Week *NewWeek,char *string,int year);
 void CommandLine(int argc, char *argv[]);
 void CommandLineHelp();
+Country *SortPopulation(Country *listhead);
+Country *SwitchNode(Country *left,Country *right);
 #endif

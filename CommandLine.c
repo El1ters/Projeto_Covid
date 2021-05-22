@@ -76,6 +76,7 @@ void CommandLine(int argc, char *argv[])
 
     if(strcmp(L,"all")==0)
     {
+        ListHead = SortPopulation(ListHead);
         printLista(ListHead);
     }
     else if (strcmp(L,"Europe") == 0)

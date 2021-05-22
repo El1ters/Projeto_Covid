@@ -5,7 +5,7 @@
 novo nó da lista princiapl ou não, pois se já exisitir um nó respetivo a um país, ao serem percorridas as diferentes linhas
 do ficheiro fornecido pelo professor quando se encontra outra vez dados fixos relativos ao mesmo país não deve ser cirado um novo
 nó, passando-se para a linha seguinte e fazendo a mesma verificação*/
-int CompareName(Country *listhead,char *string){
+int CompareName(Country *listhead,char *string/*char *continent*/){
 	Country *AuxH;
 	if(listhead == NULL){
 		return 0;
@@ -15,7 +15,9 @@ int CompareName(Country *listhead,char *string){
 			if(strcmp(AuxH->name,string) == 0){
 				return 1;
 			}
-			
+			/*if(strcmp(AuxH->continent,continent) != 0){
+				return 1;
+			}*/
 		}
 
 	}
@@ -52,3 +54,4 @@ int CompareWeek(Country *listhead,int year,int week,char *string){
 
 	return 0;
 }
+
