@@ -19,6 +19,9 @@ Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted){
 
 }
 
+
+
+/*Esta função que se segue serve para mostrar todos os dados do ficheiro de forma organizada*/
 void printLista(Country *listhead){
 	Country *Aux;
 	Year *AuxY;
@@ -50,7 +53,12 @@ void printLista(Country *listhead){
 
 }
 
+
+
+/*Esta função serve para mostrar todos os dados de forma organizada relativos a um só continente,
+continente esse escolhido pelo utilizador pelo utilizador*/
 void PrintContinentOnly(Country *listhead,char *L){
+
 	Country *Aux;
 	Year *AuxY;
 	Week *AuxW;
@@ -76,13 +84,15 @@ void PrintContinentOnly(Country *listhead,char *L){
 					printf("\t  comulative_count:%d\n",AuxW->comulative_count_deaths);
 
 				}
-
 			}
 		}
 	}
-
 }
 
+
+
+/*A função abaixo serve para libertar o espaço que tinha sido alocado na memória para guardar os dados do ficheiro.
+Faz-se isto para evitar que fique "lixo" na memória*/
 void free_list(Country *listhead){
 	Country *Aux;
 	Year *AuxY;

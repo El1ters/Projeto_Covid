@@ -14,7 +14,12 @@ Country *CreateCountryStruct(){
 	return NewCountry;
 }
 
+
+
+/*Esta função serve apenas para alocar memória suficiente para criar uma estrutura do
+tipo Year necessária à criação dos nós da lista secundária*/
 Year *CreateYearStruct(){
+
 	Year *NewYear;
 	if((NewYear = calloc(1,sizeof(Year))) == NULL){
 		printf("could not allocate memory");
@@ -25,7 +30,12 @@ Year *CreateYearStruct(){
 	return NewYear;
 }
 
+
+
+/*Esta função serve apenas para alocar memória suficiente para criar uma estrutura do
+tipo Week necessária à criação dos nós da lista terciária*/
 Week *CreateWeekStruct(){
+
 	Week *NewWeek;
 	if((NewWeek = calloc(1,sizeof(Week)))== NULL){
 		printf("could not allocate memory");
