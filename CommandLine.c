@@ -1,10 +1,14 @@
 #include "main.h"
 
+
+
+/*Em suma esta função contém a forma como todas as opções da linha de comandos são geradas*/
 void CommandLine(int argc, char *argv[])
 {
 
     int opt=0;
-    char L[10] = "all", S[10] = "0", D[10] = "0" , P[10] = "0", i[10] = "0", o[10] = "0";
+    char L[10] = "all", S[10] = "0", D[10] = "0" , P[10] = "0", i[10] = "0", o[10] = "0"; /*Inicialização das variáveis
+    do tipo caractér da linha de comandos */
 
     while((opt = getopt(argc, argv,"hL:S:D:P:i:o: ")) != -1)
     {
@@ -18,7 +22,6 @@ void CommandLine(int argc, char *argv[])
 
         case 'L':
             strcpy(L,optarg);
-            /*fazer if's e string compares para ver se os dados inseridos pelo utilizador estão dentro das restrições*/
             break;
 
         case 'S':
@@ -50,18 +53,15 @@ void CommandLine(int argc, char *argv[])
 
     }
     Country *ListHead = NULL;
-    /*Criação de um ponteiro que aponta para o tipo de estrutura Country - vai servir para
-    criar novos nós da lista principal que, por sua vez, contém os diferentes países*/
-    Country *newcountry;
+    Country *newcountry;/*Criação de um ponteiro que aponta para o tipo de estrutura Country - vai servir para
+                        criar novos nós da lista principal que, por sua vez, contém os diferentes países*/
 
     FILE *fp;
-    /*Abertura para leitura do ficheiro criado que irá ter o título indicado*/
-    fp = fopen("covid19_w_tf01.csv","r");
+    fp = fopen("covid19_w_tf01.csv","r"); /*Abertura para leitura do ficheiro criado que irá ter o título indicado*/
 
     char line[128];
+    fgets(line,128,fp);  /*Usa-se um fgets para ignorar o cabeçalho do ficheiro*/
 
-    /*Usa-se um fgets para ignorar o cabeçalho*/
-    fgets(line,128,fp);
     /*Este ciclo while que se segue vai percorrer linha a linha todo o ficheiro fornecido pelo professor e irá criar um
     novo nó da lista principal (a que contém os nomes dos países) sempre que encontarar uma linha com um nome de um
     país para o qual ainda não existe nó -> deste modo temos assim a nossa Lista principal criada*/
@@ -74,14 +74,16 @@ void CommandLine(int argc, char *argv[])
 
     }
 
+    /*Estes ciclos if que se seguem indicam a forma como o programa reagirá perante as diferentes opções introduzidas
+    pelo utilizador na linha de comandos -> esta diferentes opções podem ser consultadas mais abaixo na função
+    "ComandLineHelp"*/
     if(strcmp(L,"all")==0)
     {
-        ListHead = SortPopulation(ListHead);
         printLista(ListHead);
     }
-    else if (strcmp(L,"Europe") == 0)
-    {   
-        PrintContinentOnly(ListHead,L);
+    else if (strcmp(L,"continente")==0)
+    {
+        printf("%s", L);
 
     }
     else
@@ -89,13 +91,14 @@ void CommandLine(int argc, char *argv[])
         printf("Erro: comando inserido inválido. \n");
     }
     free_list(ListHead);
-    fclose(fp);
+
+    fclose(fp); /*Fechã-se o ficheiro criado*/
 
 }
 
 
 
-/*Função para a Linhas de Comandos - ajuda*/
+/*Função que serve unicamente para mostrar o funcionamento da linha de comandos no caso de o utilizador a invocar*/
 void CommandLineHelp()
 {
     printf("-L all -> Lê o ficheiro todo.\n");
