@@ -1,13 +1,12 @@
 #ifndef Covid19Proj
 #define Covid19Proj
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
 #include <unistd.h>
-
-
 
 /*Estrutura de uma lista terciária -> Lista esta que irá conter todas as semanas e, respetivamente, os seus dados*/
 typedef struct _Week{
@@ -24,7 +23,6 @@ typedef struct _Week{
 }Week;
 
 
-
 /*Estrutura de uma lista secundária -> Lista esta que irá conter todos os anos e,respetivamente, os seus dados*/
 typedef struct _Year{
 	int year;
@@ -32,7 +30,6 @@ typedef struct _Year{
 	Week *next_week; /*Ponteiro que permite fazer a ligação de um nó da lista secundária para a lista terciária respetiva*/
 
 }Year;
-
 
 
 /*Estrutura de uma lista principal -> Lista esta que irá conter todos os dados fixos de cada país, e cada um dos
@@ -47,9 +44,7 @@ typedef struct _Country{
 
 }Country;
 
-
-
-/*Declaração de Funções*/
+/*Declaração de Funçoes*/
 Country *ReadFile(Country **listhead,char *line);
 Country *CreateCountryStruct();
 Year *CreateYearStruct();
@@ -68,6 +63,6 @@ Country *InsertSubList(Country *listhead,char *name,Year *NewYear);
 Country *InsertThirdList(Country *listhead,Week *NewWeek,char *string,int year);
 void CommandLine(int argc, char *argv[]);
 void CommandLineHelp();
-Country *SortPopulation(Country *listhead);
+Country *BubbleSort(Country *listhead,char *S);
 Country *SwitchNode(Country *left,Country *right);
 #endif
