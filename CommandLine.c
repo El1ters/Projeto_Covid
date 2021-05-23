@@ -72,12 +72,13 @@ void CommandLine(int argc, char *argv[])
     pelo utilizador na linha de comandos -> esta diferentes opções podem ser consultadas mais abaixo na função
     "ComandLineHelp"*/
     if(strcmp(L,"all") == 0)
-    {   
+    {
         ListHead = BubbleSort(ListHead,S);
         printLista(ListHead,D);
     }
-    else if (strcmp(L,"Africa") == 0)
-    {   
+    else if (strcmp(L,"Africa") == 0 || strcmp(L,"Asia") == 0 || strcmp(L,"Europe") == 0
+             || strcmp(L,"Oceania") == 0 || strcmp(L,"America") == 0)
+    {
         ListHead = BubbleSort(ListHead,S);
         PrintContinentOnly(ListHead,L,D);
 
