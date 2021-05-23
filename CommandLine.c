@@ -1,14 +1,11 @@
 #include "main.h"
 
-
 /*Em suma esta função contém a forma como todas as opções da linha de comandos são geradas*/
 void CommandLine(int argc, char *argv[])
 {
-
-    int opt=0;
-
     /*Inicialização das variáveis do tipo caractér da linha de comandos */
-    char L[10] = "all", S[11] = "alfa", D[10] = "0" , P[10] = "0", i[10] = "0", o[10] = "0";
+    int opt=0;
+    char L[10] = "all", S[11] = "alfa", D[10] = "none" , P[10] = "0", i[10] = "0", o[10] = "0";
     char L_aux[30];
 
     while((opt = getopt(argc, argv,"hL:S:D:P:i:o: ")) != -1)
@@ -22,27 +19,15 @@ void CommandLine(int argc, char *argv[])
             break;
 
         case 'L':
-        optind--;
-        int i;
-            for(i = 0;optind < argc && *argv[optind] != '-';optind++,i++){
-                if(i == 0){
-                  strcpy(L,argv[optind]);
-
-                }else if(i == 1){
-                    strcpy(L_aux,argv[optind]);
-                }
-
-            }
-            /*fazer if's e string compares para ver se os dados inseridos pelo utilizador estão dentro das restrições*/
+            strcpy(L,optarg);
             break;
 
         case 'S':
             strcpy(S,optarg);
-
-                break;
+            break;
 
         case 'D':
-
+            strcpy(D,optarg);
             break;
 
         case 'P':
@@ -69,7 +54,6 @@ void CommandLine(int argc, char *argv[])
     fp = fopen("covid19_w_tf01.csv","r");
 
     char line[128];
-
     /*Usa-se um fgets para ignorar o cabeçalho*/
     fgets(line,128,fp);
     /*Este ciclo while que se segue vai percorrer linha a linha todo o ficheiro fornecido pelo professor e irá criar um
@@ -87,34 +71,27 @@ void CommandLine(int argc, char *argv[])
     /*Estes if que se seguem indicam a forma como o programa reagirá perante as diferentes opções introduzidas
     pelo utilizador na linha de comandos -> esta diferentes opções podem ser consultadas mais abaixo na função
     "ComandLineHelp"*/
-    if(strcmp(L,"all")==0)
-    {
+    if(strcmp(L,"all") == 0)
+    {   
         ListHead = BubbleSort(ListHead,S);
-        printLista(ListHead);
+        printLista(ListHead,D);
     }
-    else if (strcmp(L,"continente") == 0)
-    {
+    else if (strcmp(L,"Africa") == 0)
+    {   
         ListHead = BubbleSort(ListHead,S);
-        PrintContinentOnly(ListHead,L_aux);
+        PrintContinentOnly(ListHead,L,D);
 
     }
     else
     {
         printf("Erro: comando inserido inválido. \n");
     }
-
-    if(strcmp(S, "") == 0)
-    {
-        jgjgjg;
-
-    }
     free_list(ListHead);
-    /*Fecha-se o ficheiro criado*/
     fclose(fp);
 
 }
 
-/*Função que serve unicamente para mostrar o funcionamento da linha de comandos no caso de o utilizador a invocar*/
+/*Função para a Linhas de Comandos - ajuda*/
 void CommandLineHelp()
 {
     printf("-L all -> Lê o ficheiro todo.\n");

@@ -52,8 +52,8 @@ Week *CreateWeekStruct();
 void StoreContentCountry(char content[9][70],Country *country);
 void StoreContentWeek(Country *listhead,char *string,int year,int week,int content1,float content2,int content3);
 Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted);
-void printLista(Country *listhead);
-void PrintContinentOnly(Country *listhead,char *L);
+void printLista(Country *listhead,char *D);
+void PrintContinentOnly(Country *listhead,char *L,char *D);
 int CompareName(Country *listhead,char *string);
 int CompareYear(Country *listhead,int year,char *string1);
 int CompareWeek(Country *listhead,int year,int week,char *string2);
@@ -65,4 +65,5 @@ void CommandLine(int argc, char *argv[]);
 void CommandLineHelp();
 Country *BubbleSort(Country *listhead,char *S);
 Country *SwitchNode(Country *left,Country *right);
+void SelectData(Country *listhead,int date[2],char *name,char *D);
 #endif
