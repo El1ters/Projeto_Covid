@@ -1,11 +1,15 @@
 #include "main.h"
 
+
+
+/*A função que se encontra abaixo serve para ordenar os dados do ficheiro por ordem decrescente do número de
+população de países*/
 Country *BubbleSort(Country *listhead,char *S){
 	int change = 1;
 	Country *left, *right, *head, aux_struct;
 
-	/*No tipo de ordenação Bubble Sort, compara-se structs, inserimos uma struct sem nada no inicio da lista
-	para poder-mos efetuar a comparação com o primeiro elemento da lista*/
+	/*No tipo de ordenação Bubble Sort comparam-se estruturas, portanto inserimos uma estrutura auxiliar vazia no inicio da lista
+	para podermos efetuar a comparação com o primeiro elemento da lista*/
 	head = &aux_struct;
 	head->next_country = listhead;
 
@@ -37,9 +41,8 @@ Country *BubbleSort(Country *listhead,char *S){
 		}
 	}
 
-	/*Faz-se isto para saltarmos o "dummy" introduzido no início da lista de modo a que,
-	quando fizermos retorno da cabeça da lista esta estar a apontar para a primeira estrutura com conteúdo da lista
-	e não uma estrutura vazia auxiliar*/
+	/*Faz-se isto para saltarmos o "dummy" introduzido no início da lista de modo a que, quando fizermos retorno da cabeça
+    da lista esta estar a apontar para a primeira estrutura com conteúdo da lista e não uma estrutura vazia auxiliar*/
 	right = head->next_country;
 	return right;
 }
@@ -50,6 +53,3 @@ Country *SwitchNode(Country *left,Country *right){
 	right->next_country = left;
 	return right;
 }
-
-
-/*podes fazer um bubble sort em */

@@ -15,7 +15,7 @@ Country *ReadFile(Country **listhead,char *line){
         sua vez conterá a informação referente a um novo nó da lista secundária*/
 		Year *NewYear = NULL;
 		/*Inicialização de um ponteiro que aponta para uma estrutura do tipo Week que, por
-        sua vez conterá a informação referente a um novo nó da lista terciária*/ 
+        sua vez conterá a informação referente a um novo nó da lista terciária*/
 		Week *NewWeek = NULL;
 		int year;
 		int week;
@@ -46,8 +46,8 @@ Country *ReadFile(Country **listhead,char *line){
                 de modo a verificar se já existe ou não um nó referente à lista secundária. Se não existir, então será criado um*/
 			 	if(CompareYear(*listhead,year,content[0]) == 0){
 			 		NewYear = CreateYearStruct();
-			 		NewCountry->next_year = NewYear; 
-			 		NewYear->year = year;	
+			 		NewCountry->next_year = NewYear;
+			 		NewYear->year = year;
 			 	}
 			 	/*Este terceiro if que se segue irá fazer a comparação com o conteúdo retirado acima das linhas do ficheiro
                 de modo a verificar se já existe ou não um nó referente à lista terciária. Se não existir, então será criado um*/
@@ -59,7 +59,7 @@ Country *ReadFile(Country **listhead,char *line){
 							NewWeek->rate_14_day_cases = atof(content[7]);
 							NewWeek->comulative_count_cases = atoi(content[8]);
 						}
-					
+
 						NewYear->next_week = NewWeek;
 			 	}
 			}else{
@@ -80,9 +80,9 @@ Country *ReadFile(Country **listhead,char *line){
 				}else{
 					StoreContentWeek(*listhead,content[0],year,week,atoi(content[5]),atof(content[7]),atoi(content[8]));
 				}
-				
-					
+
+
 				return NULL;
 			}
-	return NewCountry;	
+	return NewCountry;
 }

@@ -1,9 +1,13 @@
 #include "main.h"
 
+
+/*Em suma esta função contém a forma como todas as opções da linha de comandos são geradas*/
 void CommandLine(int argc, char *argv[])
 {
 
     int opt=0;
+
+    /*Inicialização das variáveis do tipo caractér da linha de comandos */
     char L[10] = "all", S[11] = "alfa", D[10] = "0" , P[10] = "0", i[10] = "0", o[10] = "0";
     char L_aux[30];
 
@@ -23,11 +27,11 @@ void CommandLine(int argc, char *argv[])
             for(i = 0;optind < argc && *argv[optind] != '-';optind++,i++){
                 if(i == 0){
                   strcpy(L,argv[optind]);
-                 
+
                 }else if(i == 1){
                     strcpy(L_aux,argv[optind]);
                 }
-                
+
             }
             /*fazer if's e string compares para ver se os dados inseridos pelo utilizador estão dentro das restrições*/
             break;
@@ -84,12 +88,12 @@ void CommandLine(int argc, char *argv[])
     pelo utilizador na linha de comandos -> esta diferentes opções podem ser consultadas mais abaixo na função
     "ComandLineHelp"*/
     if(strcmp(L,"all")==0)
-    {   
+    {
         ListHead = BubbleSort(ListHead,S);
         printLista(ListHead);
     }
     else if (strcmp(L,"continente") == 0)
-    {   
+    {
         ListHead = BubbleSort(ListHead,S);
         PrintContinentOnly(ListHead,L_aux);
 
@@ -98,12 +102,19 @@ void CommandLine(int argc, char *argv[])
     {
         printf("Erro: comando inserido inválido. \n");
     }
+
+    if(strcmp(S, "") == 0)
+    {
+        jgjgjg;
+
+    }
     free_list(ListHead);
+    /*Fecha-se o ficheiro criado*/
     fclose(fp);
 
 }
 
-/*Função para a Linhas de Comandos - ajuda*/
+/*Função que serve unicamente para mostrar o funcionamento da linha de comandos no caso de o utilizador a invocar*/
 void CommandLineHelp()
 {
     printf("-L all -> Lê o ficheiro todo.\n");
