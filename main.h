@@ -11,8 +11,6 @@
 /*Estrutura de uma lista terciária -> Lista esta que irá conter todas as semanas e, respetivamente, os seus dados*/
 typedef struct _Week{
 	int week; /*Semana em causa*/
-	int indicator_cases; /*Indicador de casos -> 1 se for for caso, 0 se não for*/
-	int indicator_deaths; /*Indicador de mortes -> 1 se for mortes, 0 se não for*/
 	int weekly_count_cases; /*Número total de casos da semana em questão*/
 	int weekly_count_deaths; /*Número total de mortes da semana em questão*/
 	float rate_14_day_cases; /*Rácio de casos num período de 14 dias*/
@@ -52,11 +50,11 @@ Week *CreateWeekStruct();
 void StoreContentCountry(char content[9][70],Country *country);
 void StoreContentWeek(Country *listhead,char *string,int year,int week,int content1,float content2,int content3);
 Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted);
-void printLista(Country *listhead,char *D);
-void PrintContinentOnly(Country *listhead,char *L,char *D);
+void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2]);
 int CompareName(Country *listhead,char *string);
 int CompareYear(Country *listhead,int year,char *string1);
 int CompareWeek(Country *listhead,int year,int week,char *string2);
+int CompareDates(int week[2],int year[2],Year *A,Week *B);
 Country *RemoveContinent(Country *listhead,char string[10]);
 void free_list(Country *listhead);
 Country *InsertSubList(Country *listhead,char *name,Year *NewYear);
@@ -66,4 +64,5 @@ void CommandLineHelp();
 Country *BubbleSort(Country *listhead,char *S);
 Country *SwitchNode(Country *left,Country *right);
 void SelectData(Country *listhead,int date[2],char *name,char *D);
+int Restrict(Country *listhead,char *name, int n, char *P);
 #endif

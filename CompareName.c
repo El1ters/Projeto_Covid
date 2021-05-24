@@ -63,3 +63,26 @@ int CompareWeek(Country *listhead,int year,int week,char *string){
 
 	return 0;
 }
+
+int CompareDates(int week[2],int year[2],Year *A,Week *B){
+	int aux[2];
+	int comp = A->year + B->week;
+	aux[1] = year[1] + week[1];
+	aux[0] = year[0] + week[0];
+	if(A->year == 2021){
+		comp += 53;
+	}
+	if(year[0] == 2021){
+		aux[0] += 53;
+	}
+	if(year[1] == 2021){
+		aux[1] += 53;
+	}
+	//printf("%d %d %d\n",aux[0], comp, aux[1]);
+	if(comp >= aux[0]  && comp <= aux[1]){
+		return 1;
+	}else{
+		return 0;
+	}
+
+}

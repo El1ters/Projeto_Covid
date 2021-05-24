@@ -35,8 +35,9 @@ Country *InsertThirdList(Country *listhead,Week *NewWeek,char *string,int year){
 		if(strcmp(AuxH->name,string) == 0){
 			for(AuxY = AuxH->next_year; AuxY != NULL ;AuxY = AuxY->next_year){
 				if(AuxY->year == year){
-					NewWeek->next_week = AuxY->next_week;
-					AuxY->next_week = NewWeek;
+						NewWeek->next_week = AuxY->next_week;
+						AuxY->next_week = NewWeek;
+
 
 				}
 			}

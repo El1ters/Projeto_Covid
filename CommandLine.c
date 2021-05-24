@@ -5,8 +5,12 @@ void CommandLine(int argc, char *argv[])
 {
     /*Inicialização das variáveis do tipo caractér da linha de comandos */
     int opt=0;
-    char L[10] = "all", S[11] = "alfa", D[10] = "none" , P[10] = "0", i[10] = "0", o[10] = "0";
-    char L_aux[30];
+    char L[10] = "all", S[11] = "alfa", D[10] = "none" , P[10] = "none", i[10] = "0", o[10] = "0";
+    int year[2] = {0,0};
+    int week[2] = {0,0};
+    int flag;
+    char aux[10];
+    int population = 0;
 
     while((opt = getopt(argc, argv,"hL:S:D:P:i:o: ")) != -1)
     {
@@ -31,6 +35,30 @@ void CommandLine(int argc, char *argv[])
             break;
 
         case 'P':
+        optind--;
+            for(flag = 0;optind < argc && (*argv[optind] != 'D' || *argv[optind] != 'S' || *argv[optind] != 'L');optind++,flag++){
+                switch(flag){
+                    case 0:
+                        strcpy(P,argv[optind]);
+                        break;
+                    case 1:
+                        if(strcmp(P,"date") == 0 || strcmp(P,"dates") == 0){
+                            strcpy(aux,argv[optind]);
+                            sscanf(aux,"%d-%d",&year[0],&week[0]);
+                        }else if(strcmp(P,"min") == 0 || strcmp(P,"max") == 0){
+                            population = atoi(argv[optind]);
+                        }
+                        break;
+                    case 2:
+                        if(strcmp(P,"date") == 0 || strcmp(P,"dates") == 0){
+                            strcpy(aux,argv[optind]);
+                            sscanf(aux,"%d-%d",&year[1],&week[1]);
+                        }
+                        break;       
+                }
+                
+            }
+            
 
             break;
 
@@ -59,32 +87,29 @@ void CommandLine(int argc, char *argv[])
     /*Este ciclo while que se segue vai percorrer linha a linha todo o ficheiro fornecido pelo professor e irá criar um
     novo nó da lista principal (a que contém os nomes dos países) sempre que encontarar uma linha com um nome de um
     país para o qual ainda não existe nó -> deste modo temos assim a nossa Lista principal criada*/
-    while(fgets(line,128,fp) != NULL)
-    {
-        if((newcountry = ReadFile(&ListHead,line)) != NULL)
-        {
+    while(fgets(line,128,fp) != NULL){
+        if((newcountry = ReadFile(&ListHead,line)) != NULL){
             ListHead = CriaListaPorBaixo(ListHead,newcountry);
         }
 
     }
-
     /*Estes if que se seguem indicam a forma como o programa reagirá perante as diferentes opções introduzidas
     pelo utilizador na linha de comandos -> esta diferentes opções podem ser consultadas mais abaixo na função
     "ComandLineHelp"*/
-    if(strcmp(L,"all") == 0)
-    {
+    if(strcmp(L,"all") == 0){   
         ListHead = BubbleSort(ListHead,S);
-        printLista(ListHead,D);
+        PrintLista(ListHead,L,D,P,population,year,week);
     }
-    else if (strcmp(L,"Africa") == 0 || strcmp(L,"Asia") == 0 || strcmp(L,"Europe") == 0
-             || strcmp(L,"Oceania") == 0 || strcmp(L,"America") == 0)
-    {
-        ListHead = BubbleSort(ListHead,S);
-        PrintContinentOnly(ListHead,L,D);
+    else if (strcmp(L,"Africa") == 0 || 
+            strcmp(L,"Asia") == 0 || 
+            strcmp(L,"Europe") == 0|| 
+            strcmp(L,"Oceania") == 0 || 
+            strcmp(L,"America") == 0){
 
-    }
-    else
-    {
+        ListHead = BubbleSort(ListHead,S);
+        PrintLista(ListHead,L,D,P,population,year,week);
+
+    }else{
         printf("Erro: comando inserido inválido. \n");
     }
     free_list(ListHead);

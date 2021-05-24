@@ -90,3 +90,17 @@ void SelectData(Country *listhead,int date[2],char *name,char *D){
 		}
 	}
 }
+
+
+int Restrict(Country *listhead,char *name, int n, char *P){
+	Country *Aux;
+	for(Aux = listhead;Aux != NULL; Aux = Aux->next_country){
+		if(strcmp(Aux->name,name) == 0 && Aux->population <= n*1000 && strcmp(P,"min") == 0){
+			return 1;
+		}
+		if(strcmp(Aux->name,name) == 0 && Aux->population >= n*1000 && strcmp(P,"max") == 0){
+			return 1;
+		}
+	}
+	return 0;
+}
