@@ -6,8 +6,8 @@ Country *BubbleSort(Country *listhead,char *S){
 	int change = 1;
 	Country *left, *right, *head, aux_struct;
 
-	/*No tipo de ordenação Bubble Sort, compara-se structs, inserimos uma struct sem nada no inicio da lista
-	para poder-mos efetuar a comparação com o primeiro elemento da lista*/
+	/*No tipo de ordenação Bubble Sort, comparam-se estruturas e, portanto, inserimos uma estrutura auxiliar vazia no
+	inicio da lista para podermos efetuar a comparação com o primeiro elemento da lista*/
 	head = &aux_struct;
 	head->next_country = listhead;
 
@@ -54,6 +54,10 @@ Country *SwitchNode(Country *left,Country *right){
 }
 
 
+
+/*Esta função serve para selecionar os dados relativos a uma dada semana, dependendo do input que o utilizador introduzir
+na linha de comandos, ou seja, dependendo da palavra que o utilizador insere ao lado do -D na linha de comandos (no
+caso de inserir)*/
 void SelectData(Country *listhead,int date[2],char *name,char *D){
 	Country *AuxH;
 	Year *AuxY;
@@ -62,7 +66,7 @@ void SelectData(Country *listhead,int date[2],char *name,char *D){
 	float big1 = -10;
 
 	for(AuxH = listhead;AuxH != NULL ; AuxH = AuxH->next_country){
-	  	if(strcmp(AuxH->name,name) == 0){	
+	  	if(strcmp(AuxH->name,name) == 0){
 			for(AuxY = AuxH->next_year; AuxY != NULL; AuxY = AuxY->next_year){
 				for(AuxW = AuxY->next_week; AuxW->next_week != NULL; AuxW =  AuxW->next_week){
 					if(big < AuxW->weekly_count_cases && strcmp(D,"inf") == 0){
@@ -92,6 +96,11 @@ void SelectData(Country *listhead,int date[2],char *name,char *D){
 }
 
 
+
+/*A função que se encontra mais abaixo serve para restringir (em relação aos inputs -P min ou -P max) os dados do ficheiro
+que o programa irá dar print, ou seja, se o utilizador inserir -P min o ficheiro ficará restrito apenas aos dados dos países
+que contém uma população maior do que aquela inserida pelo utilizador ou se o utilizador inserir -P max o ficheiro ficará
+restrito apenas aos dados dos países que contém uma população menor do que aquela inserida pelo utilizador*/
 int Restrict(Country *listhead,char *name, int n, char *P){
 	Country *Aux;
 	for(Aux = listhead;Aux != NULL; Aux = Aux->next_country){

@@ -23,7 +23,7 @@ typedef struct _Week{
 
 /*Estrutura de uma lista secundária -> Lista esta que irá conter todos os anos e,respetivamente, os seus dados*/
 typedef struct _Year{
-	int year;
+	int year; /*Ano em causa*/
 	struct _Year *next_year; /*Ponteiro que permite encadear a lista passando para o próximo nó da lista*/
 	Week *next_week; /*Ponteiro que permite fazer a ligação de um nó da lista secundária para a lista terciária respetiva*/
 
@@ -42,7 +42,7 @@ typedef struct _Country{
 
 }Country;
 
-/*Declaração de Funçoes*/
+/*Declaração de Funções*/
 Country *ReadFile(Country **listhead,char *line);
 Country *CreateCountryStruct();
 Year *CreateYearStruct();

@@ -64,6 +64,10 @@ int CompareWeek(Country *listhead,int year,int week,char *string){
 	return 0;
 }
 
+
+/*Esta função serve apenas para o programa saber o intervalo de semanas que é especificado pelo utilizador em certas opções
+da linha de comandos, ou seja, através desta função o programa contabiliza o número total de semanas limitando a informação
+entre aquelas que o utilizador definir como extremos*/
 int CompareDates(int week[2],int year[2],Year *A,Week *B){
 	int aux[2];
 	int comp = A->year + B->week;

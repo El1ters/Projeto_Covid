@@ -28,13 +28,12 @@ Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted){
 	Week *AuxW;
 	int date[2];
 	int flag;
-
 	for(Aux = listhead; Aux != NULL; Aux = Aux->next_country){
 	  	if(strcmp(P,"none") == 0 || Restrict(listhead,Aux->name,n,P) == 0){
-	  	  	for(flag = 0;flag <= 1;flag++){	
+	  	  	for(flag = 0;flag <= 1;flag++){
 				for(AuxY = Aux->next_year; AuxY != NULL ;AuxY = AuxY->next_year){
 			  		if((strcmp(P,"date") == 0  && AuxY->year == year[0]) || (strcmp(P,"date") != 0 && strcmp(P,"dates") != 0) ||
-			  			(strcmp(P,"dates") == 0 && AuxY->year >= year[0] && AuxY->year <= year[1])){		
+			  			(strcmp(P,"dates") == 0 && AuxY->year >= year[0] && AuxY->year <= year[1])){
 						if(strcmp(D,"none") != 0){
 							SelectData(listhead,date,Aux->name,D);
 						}
@@ -100,13 +99,17 @@ Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted){
 						}
 				  	}
 				}
-		    }	
+		    }
 		}
 	}
 }*/
 
-/*Esta função serve para mostrar todos os dados de forma organizada relativos a um só continente,
-continente esse escolhido pelo utilizador pelo utilizador*/
+
+/*Esta função serve para mostrar todos os dados de forma organizada, dependendo das opções inseridas pelo utilizador
+na linha de comandos, ou seja, consoante as opções que o utilizador inserir o programa dará print da informação do
+ficheiro relativo a essas mesmas restrições. Basicamente esta função irá percorrer as três listas onde estão guardados
+os dados do ficheiro e irá ao mesmo tempo verificar as restrições inseridas pelo utilizador e, consoante, isso irá dar print
+da informção respetiva*/
 void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2]){
 
 	Country *Aux;
@@ -118,7 +121,7 @@ void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int 
 	for(Aux = listhead; Aux != NULL; Aux = Aux->next_country){
 	  	if(strcmp(P,"none") == 0 || Restrict(listhead,Aux->name,n,P) == 0){
 			if(strcmp(Aux->continent,L) == 0 || strcmp(L,"all") == 0){
-			    for(flag = 0;flag <= 1;flag++){	
+			    for(flag = 0;flag <= 1;flag++){
 					for(AuxY = Aux->next_year; AuxY != NULL ;AuxY = AuxY->next_year){
 						if((strcmp(P,"date") == 0  && AuxY->year == year[0]) || (strcmp(P,"date") != 0 && strcmp(P,"dates") != 0) ||
 			  				(strcmp(P,"dates") == 0 && AuxY->year >= year[0] && AuxY->year <= year[1])){
@@ -188,12 +191,12 @@ void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int 
 										}
 									}
 								}
-							}  
+							}
 						}
 					}
-			  	}	
+			  	}
 			}
-		}	
+		}
 	}
 }
 

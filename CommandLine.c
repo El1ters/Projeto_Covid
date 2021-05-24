@@ -3,7 +3,7 @@
 /*Em suma esta função contém a forma como todas as opções da linha de comandos são geradas*/
 void CommandLine(int argc, char *argv[])
 {
-    /*Inicialização das variáveis do tipo caractér da linha de comandos */
+    /*Inicialização das variáveis do tipo char da linha de comandos */
     int opt=0;
     char L[10] = "all", S[11] = "alfa", D[10] = "none" , P[10] = "none", i[10] = "0", o[10] = "0";
     int year[2] = {0,0};
@@ -54,11 +54,11 @@ void CommandLine(int argc, char *argv[])
                             strcpy(aux,argv[optind]);
                             sscanf(aux,"%d-%d",&year[1],&week[1]);
                         }
-                        break;       
+                        break;
                 }
-                
+
             }
-            
+
 
             break;
 
@@ -96,14 +96,14 @@ void CommandLine(int argc, char *argv[])
     /*Estes if que se seguem indicam a forma como o programa reagirá perante as diferentes opções introduzidas
     pelo utilizador na linha de comandos -> esta diferentes opções podem ser consultadas mais abaixo na função
     "ComandLineHelp"*/
-    if(strcmp(L,"all") == 0){   
+    if(strcmp(L,"all") == 0){
         ListHead = BubbleSort(ListHead,S);
         PrintLista(ListHead,L,D,P,population,year,week);
     }
-    else if (strcmp(L,"Africa") == 0 || 
-            strcmp(L,"Asia") == 0 || 
-            strcmp(L,"Europe") == 0|| 
-            strcmp(L,"Oceania") == 0 || 
+    else if (strcmp(L,"Africa") == 0 ||
+            strcmp(L,"Asia") == 0 ||
+            strcmp(L,"Europe") == 0||
+            strcmp(L,"Oceania") == 0 ||
             strcmp(L,"America") == 0){
 
         ListHead = BubbleSort(ListHead,S);
@@ -135,7 +135,7 @@ void CommandLineHelp()
     printf("-P date -> Apenas dados relativos à semana indicada pelo utilizador no formato yyyy-ww.\n");
     printf("-P dates -> Apenas dados entre as semanas indicadas no formato yyyy-ww yyyy-ww (a ordem é irrelevante).\n");
     printf("-i nome_do_ficheiro.csv -> Leitura de dados do ficheiro de texto sendo que o nome_do_ficheiro é introduzido pelo utilizador.\n");
-    printf("-i nome_do_ficheiro.data -> Leitura de dados do ficheiro binário sendo que o nome_do_ficheiro é introduzido pelo utilizador.\n");
+    printf("-i nome_do_ficheiro.dat -> Leitura de dados do ficheiro binário sendo que o nome_do_ficheiro é introduzido pelo utilizador.\n");
     printf("-o nome_do_ficheiro.csv -> Escrita de dados em ficheiro de texto sendo que o nome_do_ficheiro é introduzido pelo utilizador.\n");
-    printf("-o nome_do_ficheiro.data -> Escrita de dados em ficheiro binário sendo que o nome_do_ficheiro é introduzido pelo utilizador.\n");
+    printf("-o nome_do_ficheiro.dat -> Escrita de dados em ficheiro binário sendo que o nome_do_ficheiro é introduzido pelo utilizador.\n");
 }
