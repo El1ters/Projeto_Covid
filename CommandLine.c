@@ -9,7 +9,7 @@ void CommandLine(int argc, char *argv[])
     int year[2] = {0,0};
     int week[2] = {0,0};
     int flag;
-     int date[2] = {0};
+    int date[2] = {0};
     char aux[10];
     int population = 0;
 
@@ -111,8 +111,16 @@ void CommandLine(int argc, char *argv[])
     pelo utilizador na linha de comandos -> esta diferentes opções podem ser consultadas mais abaixo na função
     "ComandLineHelp"*/
     if(strcmp(L,"all") == 0){
-        //ListHead = BubbleSort(ListHead,S); //-S alfa -S pop
-        ListHead = SortTotal(ListHead,S,date); // -S inf date -S dea Date
+        if (strcmp (S,"alfa") == 0 || strcmp (S,"pop") == 0){
+            ListHead = BubbleSort(ListHead,S); //-S alfa -S pop
+        }
+        else if (strcmp (S,"inf") == 0 || strcmp (S,"dea") == 0){
+            ListHead = SortTotal(ListHead,S,date); // -S inf date -S dea Date
+        }
+        else{
+            printf("Erro: comando inserido inválido. \n");
+            exit(0);
+        }
         PrintLista(ListHead,L,D,P,population,year,week);
     }
     else if (strcmp(L,"Africa") == 0 ||
@@ -124,7 +132,8 @@ void CommandLine(int argc, char *argv[])
         ListHead = BubbleSort(ListHead,S);
         PrintLista(ListHead,L,D,P,population,year,week);
 
-    }else{
+    }
+    else{
         printf("Erro: comando inserido inválido. \n");
         exit(0);
     }
