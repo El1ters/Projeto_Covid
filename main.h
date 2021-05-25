@@ -65,4 +65,5 @@ Country *BubbleSort(Country *listhead,char *S);
 Country *SwitchNode(Country *left,Country *right);
 void SelectData(Country *listhead,int date[2],char *name,char *D);
 int Restrict(Country *listhead,char *name, int n, char *P);
+Country *SortTotal(Country *listhead,char *S, int date[2]);
 #endif

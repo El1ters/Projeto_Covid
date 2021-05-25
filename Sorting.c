@@ -68,7 +68,7 @@ void SelectData(Country *listhead,int date[2],char *name,char *D){
 	for(AuxH = listhead;AuxH != NULL ; AuxH = AuxH->next_country){
 	  	if(strcmp(AuxH->name,name) == 0){
 			for(AuxY = AuxH->next_year; AuxY != NULL; AuxY = AuxY->next_year){
-				for(AuxW = AuxY->next_week; AuxW->next_week != NULL; AuxW =  AuxW->next_week){
+				for(AuxW = AuxY->next_week; AuxW!= NULL; AuxW =  AuxW->next_week){
 					if(big < AuxW->weekly_count_cases && strcmp(D,"inf") == 0){
 						big = AuxW->weekly_count_cases;
 						date[0] = AuxY->year;
@@ -112,4 +112,63 @@ int Restrict(Country *listhead,char *name, int n, char *P){
 		}
 	}
 	return 0;
+}
+
+Country *SortTotal(Country *listhead,char *S, int date[2]){
+	int change = 1;
+	Country *head,*left,*right,aux_struct;
+	Week *AuxW_R,*AuxW_RN;
+	Year *AuxY_R,*AuxY_RN;
+	int comulative_R = 0, comulative_RN = 0;
+
+
+
+	head = &aux_struct;
+	head->next_country = listhead;
+	if(listhead != NULL && listhead->next_country != NULL){
+		while(change){
+			change = 0;
+			left = head;
+			right = head->next_country;
+				while(right->next_country != NULL){
+					for(AuxY_R = right->next_year; AuxY_R != NULL;AuxY_R = AuxY_R->next_year){
+						if(AuxY_R->year == date[0]){
+							for(AuxW_R = AuxY_R->next_week; AuxW_R != NULL; AuxW_R = AuxW_R->next_week){
+								if(AuxW_R->week == date[1]){
+									if(strcmp(S,"inf") == 0){
+										comulative_R = AuxW_R->weekly_count_cases;
+									}else{
+										comulative_R = AuxW_R->weekly_count_deaths;
+									}
+								}
+							}
+						}
+					}
+					for(AuxY_RN = right->next_country->next_year; AuxY_RN != NULL;AuxY_RN = AuxY_RN->next_year){
+						if(AuxY_RN->year == date[0]){
+							for(AuxW_RN = AuxY_RN->next_week; AuxW_RN != NULL; AuxW_RN = AuxW_RN->next_week){
+								if(AuxW_RN->week == date[1]){
+									if(strcmp(S,"inf") == 0){
+										comulative_RN = AuxW_RN->weekly_count_cases;
+									}else{
+										comulative_RN = AuxW_RN->weekly_count_deaths;
+									}
+								}
+							}
+						}
+					}
+					if(comulative_R < comulative_RN){
+						left->next_country = SwitchNode(right,right->next_country);
+						change = 1;
+					}
+					left = right;
+					if(right->next_country != NULL){
+						right = right->next_country;
+					}
+				}
+		}
+
+	}
+	right = head->next_country;
+	return right;
 }

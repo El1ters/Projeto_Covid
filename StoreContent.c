@@ -1,3 +1,4 @@
+
 #include "main.h"
 
 /*A função void que se segue permite copiar os dados fixos do ficheiro para os nós da lista principal que vão ter o tipo

@@ -5,10 +5,11 @@ void CommandLine(int argc, char *argv[])
 {
     /*Inicialização das variáveis do tipo char da linha de comandos */
     int opt=0;
-    char L[10] = "all", S[11] = "alfa", D[10] = "none" , P[10] = "none", i[10] = "0", o[10] = "0";
+    char L[10] = "all", S[10] = "alfa", D[10] = "none" , P[10] = "none", i[10] = "0", o[10] = "0";
     int year[2] = {0,0};
     int week[2] = {0,0};
     int flag;
+     int date[2] = {0};
     char aux[10];
     int population = 0;
 
@@ -27,7 +28,20 @@ void CommandLine(int argc, char *argv[])
             break;
 
         case 'S':
-            strcpy(S,optarg);
+            optind--;
+            for(flag =0;optind < argc && (*argv[optind] != '-');optind++,flag++){
+                switch(flag){
+                    case 0:
+                        strcpy(S,argv[optind]);
+                        break;
+                    case 1:
+                        if(strcmp(S,"inf") == 0 || strcmp(S,"dea") == 0){
+                            strcpy(aux,argv[optind]);
+                            sscanf(aux,"%d-%d",&date[0],&date[1]);
+                        }
+                        break;
+                }
+            }
             break;
 
         case 'D':
@@ -35,8 +49,8 @@ void CommandLine(int argc, char *argv[])
             break;
 
         case 'P':
-        optind--;
-            for(flag = 0;optind < argc && (*argv[optind] != 'D' || *argv[optind] != 'S' || *argv[optind] != 'L');optind++,flag++){
+            optind--;
+            for(flag = 0;optind < argc && (*argv[optind] != '-');optind++,flag++){
                 switch(flag){
                     case 0:
                         strcpy(P,argv[optind]);
@@ -97,7 +111,8 @@ void CommandLine(int argc, char *argv[])
     pelo utilizador na linha de comandos -> esta diferentes opções podem ser consultadas mais abaixo na função
     "ComandLineHelp"*/
     if(strcmp(L,"all") == 0){
-        ListHead = BubbleSort(ListHead,S);
+        //ListHead = BubbleSort(ListHead,S); //-S alfa -S pop
+        ListHead = SortTotal(ListHead,S,date); // -S inf date -S dea Date
         PrintLista(ListHead,L,D,P,population,year,week);
     }
     else if (strcmp(L,"Africa") == 0 ||
@@ -111,6 +126,7 @@ void CommandLine(int argc, char *argv[])
 
     }else{
         printf("Erro: comando inserido inválido. \n");
+        exit(0);
     }
     free_list(ListHead);
     fclose(fp);
