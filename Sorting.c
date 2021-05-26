@@ -127,7 +127,13 @@ int Restrict(Country *listhead,char *name, int n, char *P){
 }
 
 
-/**/
+/*A função que se encontra abaixo serve para ordenar os dados do ficheiro por ordem decrescente do número total de infetados
+por países numa determinada data yyyy-ww ou por ordem decrescente do número total de mortes  por países numa determinada data
+yyyy-ww (no caso de o utilizador inserir -S inf ou -S dea na linha de comandos, respetivamente) -> recebe como argumentos um
+ponteiro para uma estrutura do tipo País (vai corresponder à cabeça da lista principal), um ponteiro para a variável S
+inicializada na linha de  comandos (que contém os dados que o utilizador introduziu na linha de comandos relativamente ao -S)
+e um vetor do tipo inteiro (que vai guardar a data introduzida pelo utilizador na linha de comandos), dando retorno no fim de
+tudo de "right" que será a cabeça da nossa lista já ordenada*/
 Country *SortTotal(Country *listhead,char *S, int date[2]){
 	int change = 1;
 	Country *head,*left,*right,aux_struct;
@@ -183,6 +189,8 @@ Country *SortTotal(Country *listhead,char *S, int date[2]){
 		}
 
 	}
+	/*Faz-se isto para saltarmos o "dummy" introduzido no início da lista de modo a que, quando fizermos retorno da cabeça
+    da lista esta estar a apontar para a primeira estrutura com conteúdo da lista e não uma estrutura vazia auxiliar*/
 	right = head->next_country;
 	return right;
 }
