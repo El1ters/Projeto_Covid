@@ -1,8 +1,9 @@
 #include "main.h"
 
 
-/*Esta função serve apenas para alocar memória suficiente para criar uma estrutura do
-tipo Country necessária à criação dos nós da lista principal*/
+/*Esta função serve apenas para alocar memória suficiente para criar uma estrutura do tipo Country necessária à criação
+dos nós da lista principal -> não recebe argumentos e retorna o espaço alocado em memória para guardar um novo nó da
+lista principal*/
 Country *CreateCountryStruct(){
 	Country *NewCountry;
 
@@ -16,8 +17,9 @@ Country *CreateCountryStruct(){
 
 
 
-/*Esta função serve apenas para alocar memória suficiente para criar uma estrutura do
-tipo Year necessária à criação dos nós da lista secundária*/
+/*Esta função serve apenas para alocar memória suficiente para criar uma estrutura do tipo Year necessária à criação
+dos nós da lista secundária -> não recebe argumentos e retorna o espaço alocado em memória para guardar um novo nó da
+lista secundária*/
 Year *CreateYearStruct(){
 
 	Year *NewYear;
@@ -32,8 +34,9 @@ Year *CreateYearStruct(){
 
 
 
-/*Esta função serve apenas para alocar memória suficiente para criar uma estrutura do
-tipo Week necessária à criação dos nós da lista terciária*/
+/*Esta função serve apenas para alocar memória suficiente para criar uma estrutura do tipo Week necessária à criação
+dos nós da lista terciária -> não recebe argumentos e retorna o espaço alocado em memória para guardar um novo nó da
+lista terciária*/
 Week *CreateWeekStruct(){
 
 	Week *NewWeek;

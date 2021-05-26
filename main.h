@@ -30,8 +30,8 @@ typedef struct _Year{
 }Year;
 
 
-/*Estrutura de uma lista principal -> Lista esta que irá conter todos os dados fixos de cada país, e cada um dos
-nós desta lista irá conter, respetivamente, uma lista secundária que por sua vez se subdividirá numa lista terciária*/
+/*Estrutura de uma lista principal -> Lista esta que irá conter todos os dados fixos de cada país, sendo que cada um destes
+nós da lista irá conter, respetivamente, uma lista secundária que por sua vez se subdividirá na lista terciária correspondente*/
 typedef struct _Country{
 	char name[30]; /*Nome do país*/
 	char country_code[4]; /*Código do País*/
@@ -42,7 +42,7 @@ typedef struct _Country{
 
 }Country;
 
-/*Declaração de Funções*/
+/*Declaração das Funções*/
 Country *ReadFile(Country **listhead,char *line);
 Country *CreateCountryStruct();
 Year *CreateYearStruct();

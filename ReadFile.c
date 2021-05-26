@@ -2,8 +2,10 @@
 
 
 /*Esta Função irá servir para lermos os dados do ficheiro fornecido pelo professor -> vai receber como argumentos
-um ponteiro que aponta para uma estrutura do tipo da dos Países e que irá permitir encadear os nós da lista principal
-e um ponteiro do tipo Char que apontará para a linha do ficheiro da qual estamos a retirar a informção*/
+um ponteiro que aponta para um vetor de ponteiros (onde cada um deles aponta para uma estrutura do tipo da dos Países
+e que irá permitir encadear os nós da lista principal) e um ponteiro do tipo char que apontará para a linha do ficheiro
+da qual estamos a retirar a informção; no fim da função será retornado um nó da lista principal já com todos os dados variáveis
+correspondentes.*/
 Country *ReadFile(Country **listhead,char *line){
 		char *token;
 		char content[9][70] = {{0}};
@@ -23,19 +25,20 @@ Country *ReadFile(Country **listhead,char *line){
 
 		token = strtok(line,",");
 		/*O ciclo while que se segue permite percorrer todos os dados referentes a cada linha do ficheiro fornecido
-		copiando-os para uma variável auxiliar denominada de "content" */
+		copiando-os para uma variável auxiliar denominada de "content"*/
 		while(token != NULL){
 			strcpy(content[i],token);
 			token = strtok(NULL,",");
 				i++;
 		}
-		/*Este if serve para resolver o problema de aparecerem duas vírgulas seguidas em algumas linhas do ficheiro*/
+            /*Este if serve para resolver o problema de aparecerem duas vírgulas seguidas em algumas linhas do ficheiro*/
 			if(i == 8){
 				strcpy(content[8],content[7]);
 				strcpy(content[7],"\0");
 			}
 			strtok(content[8],"\n");
 			sscanf(content[6],"%d-%d",&year,&week);
+
 			/*Este if que se segue irá fazer a comparação com o conteúdo retirado acima das linhas do ficheiro de modo
         	a verificar se já existe ou não um nó referente a um dado país. Se não existir, então será criado um*/
 			if(CompareName(*listhead,content[0]) == 0){

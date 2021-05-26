@@ -1,8 +1,9 @@
 #include "main.h"
 
 
-/*Função que permite acrescentar os nós criados para cada país à lista principal, encaminhando-os numa lista
-simplesmente ligada*/
+/*Função que permite acrescentar os nós criados para cada país à lista principal, encaminhando-os numa lista simplesmente ligada
+-> esta função recebe como argumentos dois ponteiros para uma estrutura do tipo país (correspondetes à cabeça do primeiro nó da
+lista principal e à cabeça do nó inserido imediatamente a seguir a esse, respetivamnte)*/
 Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted){
 	Country *Aux;
 
@@ -20,10 +21,13 @@ Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted){
 }
 
 /*Esta função serve para mostrar todos os dados de forma organizada, dependendo das opções inseridas pelo utilizador
-na linha de comandos, ou seja, consoante as opções que o utilizador inserir o programa dará print da informação do
+na linha de comandos, ou seja, consoante as opções que o utilizador inserir o programa irá dar print da informação do
 ficheiro relativo a essas mesmas restrições. Basicamente esta função irá percorrer as três listas onde estão guardados
-os dados do ficheiro e irá ao mesmo tempo verificar as restrições inseridas pelo utilizador e, consoante, isso irá dar print
-da informção respetiva*/
+os dados do ficheiro e irá, ao mesmo, tempo verificar as restrições inseridas pelo utilizador e, consoante isso, irá dar print
+da respetiva informção -> esta função recebe como argumentos um ponteiro para uma estrutura do tipo país (corresponde à cabeça
+da lista principal), vários ponteiros do tipo char (correspondem às variávéis inicializadas na linha de comandos (que contém os
+dados que o utilzador introduziu na linha de comandos relativamente ao -L, -D e -P)) e ainda dois vetores de inteiros
+(que correspondem ao número total de semanas dos anos considerados no ficheiro )*/
 void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2]){
 
 	Country *Aux;
@@ -32,6 +36,8 @@ void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int 
 	int date[2] = {0};
 	int flag;
 
+    /*Ao longo dos ciclos for's e das condições if's que se seguem o programa vai percorrendo as listas e verificando se alguma
+    restrição se verifica, para saber os dados do ficheiro que terá de dar print*/
 	for(Aux = listhead; Aux != NULL; Aux = Aux->next_country){
 	  	if(strcmp(P,"none") == 0 || Restrict(listhead,Aux->name,n,P) == 0){
 			if(strcmp(Aux->continent,L) == 0 || strcmp(L,"all") == 0){
@@ -114,8 +120,9 @@ void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int 
 }
 
 
-/*A função abaixo serve para libertar o espaço que tinha sido alocado na memória para guardar os dados do ficheiro.
-Faz-se isto para evitar que fique "lixo" na memória*/
+/*A função abaixo serve para libertar o espaço que tinha sido alocado na memória para guardar os dados do ficheiro. Faz-se isto
+para evitar que fique "lixo" na memória -> esta função recebe como argumentos um ponteiro para uma estrutura do tipo país
+(corresponde à cabeça da nossa lista principal)*/
 void free_list(Country *listhead){
 	Country *Aux;
 	Year *AuxY;
