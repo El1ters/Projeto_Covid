@@ -6,9 +6,10 @@ e um ponteiro para uma estrutura do tipo País (que corresponde a um nó da list
 void StoreContentCountry(char content[9][70],Country *country){
 		strcpy(country->name,content[0]);
 		strcpy(country->country_code,content[1]);
-		strcpy(country->continent,content[2]);
+		strcpy(country->continent,content[2]);			
 		country->population = atoi(content[3]);
 }
+
 
 /*A função void que se segue permite copiar os dados variáveis do ficheiro para os nós das listas secundária e terciária
 sendo que, recorre-se a ciclos for's para, à medida que se vai avançando no ficheiro sempre que nos estivermos a referir
@@ -34,13 +35,13 @@ void StoreContentWeek(Country *listhead,char *string,int year,int week,int conte
 							AuxW->rate_14_day_deaths = content2;
 							AuxW->comulative_count_deaths = content3;
 						}
-
+						
 					}
-
+					
 				}
-
+				
 			}
 		}
-
+		
 	}
 }

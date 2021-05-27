@@ -30,8 +30,8 @@ typedef struct _Year{
 }Year;
 
 
-/*Estrutura de uma lista principal -> Lista esta que irá conter todos os dados fixos de cada país, sendo que cada um destes
-nós da lista irá conter, respetivamente, uma lista secundária que por sua vez se subdividirá na lista terciária correspondente*/
+/*Estrutura de uma lista principal -> Lista esta que irá conter todos os dados fixos de cada país, e cada um dos
+nós desta lista irá conter, respetivamente, uma lista secundária que por sua vez se subdividirá numa lista terciária*/
 typedef struct _Country{
 	char name[30]; /*Nome do país*/
 	char country_code[4]; /*Código do País*/
@@ -42,7 +42,7 @@ typedef struct _Country{
 
 }Country;
 
-/*Declaração das Funções*/
+/*Declaração de Funções*/
 Country *ReadFile(Country **listhead,char *line);
 Country *CreateCountryStruct();
 Year *CreateYearStruct();
@@ -50,7 +50,7 @@ Week *CreateWeekStruct();
 void StoreContentCountry(char content[9][70],Country *country);
 void StoreContentWeek(Country *listhead,char *string,int year,int week,int content1,float content2,int content3);
 Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted);
-void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2]);
+void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2], FILE *fp);
 int CompareName(Country *listhead,char *string);
 int CompareYear(Country *listhead,int year,char *string1);
 int CompareWeek(Country *listhead,int year,int week,char *string2);

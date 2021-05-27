@@ -1,6 +1,7 @@
 #include "main.h"
 
 
+
 /*Esta função serve para comparar duas strings, sendo essencial para que no "ReadFile.c" se saiba se se tem de criar um
 novo nó da lista principal ou não pois, se já existir um nó respetivo a um país, ao serem percorridas as diferentes linhas
 do ficheiro fornecido pelo professor, quando se encontra outra vez dados fixos relativos ao mesmo país não deve ser criado um novo
@@ -73,7 +74,6 @@ int CompareWeek(Country *listhead,int year,int week,char *string){
 	return 0;
 }
 
-
 /*Esta função serve apenas para o programa saber o intervalo de semanas que é especificado pelo utilizador em certas opções
 da linha de comandos, ou seja, através desta função o programa contabiliza o número total de semanas limitando a informação
 entre aquelas que o utilizador definir como extremos -> esta função recebe como argumentos dois vetores do tipo inteiro
@@ -94,7 +94,6 @@ int CompareDates(int week[2],int year[2],Year *A,Week *B){
 	if(year[1] == 2021){
 		aux[1] += 53;
 	}
-	//printf("%d %d %d\n",aux[0], comp, aux[1]);
 	if(comp >= aux[0]  && comp <= aux[1]){
 		return 1;
 	}else{

@@ -28,7 +28,7 @@ da respetiva informção -> esta função recebe como argumentos um ponteiro par
 da lista principal), vários ponteiros do tipo char (correspondem às variávéis inicializadas na linha de comandos (que contém os
 dados que o utilzador introduziu na linha de comandos relativamente ao -L, -D e -P)) e ainda dois vetores de inteiros
 (que correspondem ao número total de semanas dos anos considerados no ficheiro )*/
-void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2]){
+void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2], FILE *fp){
 
 	Country *Aux;
 	Year *AuxY;
@@ -36,7 +36,7 @@ void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int 
 	int date[2] = {0};
 	int flag;
 
-    /*Ao longo dos ciclos for's e das condições if's que se seguem o programa vai percorrendo as listas e verificando se alguma
+	/*Ao longo dos ciclos for's e das condições if's que se seguem o programa vai percorrendo as listas e verificando se alguma
     restrição se verifica, para saber os dados do ficheiro que terá de dar print*/
 	for(Aux = listhead; Aux != NULL; Aux = Aux->next_country){
 	  	if(strcmp(P,"none") == 0 || Restrict(listhead,Aux->name,n,P) == 0){
@@ -48,35 +48,32 @@ void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int 
 							if(strcmp(D,"none") != 0){
 								SelectData(listhead,date,Aux->name,D);
 							}
-
 							for(AuxW = AuxY->next_week; AuxW != NULL; AuxW = AuxW->next_week){
-
 								if(strcmp(D,"none") == 0){
-
 									if((strcmp(P,"date") == 0  && AuxW->week == week[0]) || strcmp(P,"date") != 0 ){
 										if((CompareDates(week,year,AuxY,AuxW) == 1 && strcmp(P,"dates") == 0) || strcmp(P,"dates") != 0){
 											if(flag == 0){
-												printf("%s,",Aux->name);
-												printf("%s,",Aux->country_code);
-												printf("%s,",Aux->continent);
-												printf("%d,",Aux->population);
-												printf("%d,",AuxY->year);
-												printf("%d,",AuxW->week);
-												printf("Casos:");
-												printf("%d,",AuxW->weekly_count_cases);
-												printf("%.3f,",AuxW->rate_14_day_cases);
-												printf("%d\n\n",AuxW->comulative_count_cases);
+												fprintf(fp,"%s,",Aux->name);
+												fprintf(fp,"%s,",Aux->country_code);
+												fprintf(fp,"%s,",Aux->continent);
+												fprintf(fp,"%d,",Aux->population);
+												fprintf(fp,"cases,");
+												fprintf(fp,"%d,",AuxW->weekly_count_cases);
+												fprintf(fp,"%d-",AuxY->year);
+												fprintf(fp,"%d,",AuxW->week);
+												fprintf(fp,"%.3f,",AuxW->rate_14_day_cases);
+												fprintf(fp,"%d\n",AuxW->comulative_count_cases);
 											}else{
-												printf("%s,",Aux->name);
-												printf("%s,",Aux->country_code);
-												printf("%s,",Aux->continent);
-												printf("%d,",Aux->population);
-												printf("%d,",AuxY->year);
-												printf("%d,",AuxW->week);
-												printf("Mortes:");
-												printf("%d,",AuxW->weekly_count_deaths);
-												printf("%.3f,",AuxW->rate_14_day_deaths);
-												printf("%d\n\n",AuxW->comulative_count_deaths);
+												fprintf(fp,"%s,",Aux->name);
+												fprintf(fp,"%s,",Aux->country_code);
+												fprintf(fp,"%s,",Aux->continent);
+												fprintf(fp,"%d,",Aux->population);
+												fprintf(fp,"deaths,");
+												fprintf(fp,"%d,",AuxW->weekly_count_deaths);
+												fprintf(fp,"%d-",AuxY->year);
+												fprintf(fp,"%d,",AuxW->week);
+												fprintf(fp,"%.3f,",AuxW->rate_14_day_deaths);
+												fprintf(fp,"%d\n",AuxW->comulative_count_deaths);
 											}
 										}
 									}
@@ -85,27 +82,27 @@ void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int 
 									if((strcmp(P,"date") == 0  && AuxW->week == week[0]) || strcmp(P,"date") != 0 ){
 										if((CompareDates(week,year,AuxY,AuxW) == 1 && strcmp(P,"dates") == 0) || strcmp(P,"dates") != 0){
 											if((flag == 0 && strcmp(D,"dea") != 0 && strcmp(D,"raciodea") != 0) || (strcmp(D,"inf") == 0 && flag == 0) || (strcmp(D,"racioinf") == 0 && flag == 0)){
-												printf("%s,",Aux->name);
-												printf("%s,",Aux->country_code);
-												printf("%s,",Aux->continent);
-												printf("%d,",Aux->population);
-												printf("%d,",AuxY->year);
-												printf("%d,",AuxW->week);
-												printf("Casos:");
-												printf("%d,",AuxW->weekly_count_cases);
-												printf("%.3f,",AuxW->rate_14_day_cases);
-												printf("%d\n\n",AuxW->comulative_count_cases);
+												fprintf(fp,"%s,",Aux->name);
+												fprintf(fp,"%s,",Aux->country_code);
+												fprintf(fp,"%s,",Aux->continent);
+												fprintf(fp,"%d,",Aux->population);
+												fprintf(fp,"cases,");
+												fprintf(fp,"%d,",AuxW->weekly_count_cases);
+												fprintf(fp,"%d-",AuxY->year);
+												fprintf(fp,"%d,",AuxW->week);
+												fprintf(fp,"%.3f,",AuxW->rate_14_day_cases);
+												fprintf(fp,"%d\n",AuxW->comulative_count_cases);
 											}else if((flag == 1 && strcmp(D,"inf") != 0 && strcmp(D,"racioinf") != 0)){
-												printf("%s,",Aux->name);
-												printf("%s,",Aux->country_code);
-												printf("%s,",Aux->continent);
-												printf("%d,",Aux->population);
-												printf("%d,",AuxY->year);
-												printf("%d,",AuxW->week);
-												printf("Mortes:");
-												printf("%d,",AuxW->weekly_count_deaths);
-												printf("%.3f,",AuxW->rate_14_day_deaths);
-												printf("%d\n\n",AuxW->comulative_count_deaths);
+												fprintf(fp,"%s,",Aux->name);
+												fprintf(fp,"%s,",Aux->country_code);
+												fprintf(fp,"%s,",Aux->continent);
+												fprintf(fp,"%d,",Aux->population);
+												fprintf(fp,"deaths,");
+												fprintf(fp,"%d,",AuxW->weekly_count_deaths);
+												fprintf(fp,"%d-",AuxY->year);
+												fprintf(fp,"%d,",AuxW->week);
+												fprintf(fp,"%.3f,",AuxW->rate_14_day_deaths);
+												fprintf(fp,"%d\n",AuxW->comulative_count_deaths);
 											}
 										}
 									}
