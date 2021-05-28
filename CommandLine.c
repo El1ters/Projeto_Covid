@@ -127,7 +127,8 @@ void CommandLine(int argc, char *argv[])
         novo nó da lista principal (a que contém os nomes dos países) sempre que encontarar uma linha com um nome de um
         país para o qual ainda não existe nó -> deste modo temos assim a nossa Lista principal criada*/
         while(fgets(line,127,fp) != NULL){
-            if( jump >= 1){
+            /* fazer para jump >= 1 para ignorar o cabeçalho*/
+            if(jump >= 1){
                 if((newcountry = ReadFile(&ListHead,line)) != NULL){
                     ListHead = CriaListaPorBaixo(ListHead,newcountry);
                 }
