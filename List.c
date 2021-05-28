@@ -26,7 +26,7 @@ ficheiro relativo a essas mesmas restrições. Basicamente esta função irá pe
 os dados do ficheiro e irá, ao mesmo, tempo verificar as restrições inseridas pelo utilizador e, consoante isso, irá dar print
 da respetiva informção -> esta função recebe como argumentos um ponteiro para uma estrutura do tipo país (corresponde à cabeça
 da lista principal), vários ponteiros do tipo char (correspondem às variávéis inicializadas na linha de comandos (que contém os
-dados que o utilzador introduziu na linha de comandos relativamente ao -L, -D, -P, -i e -o)) e ainda dois vetores de inteiros
+dados que o utilzador introduziu na linha de comandos relativamente ao -L, -D e -P)) e ainda dois vetores de inteiros
 (que correspondem ao número total de semanas dos anos considerados no ficheiro )*/
 void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2], FILE *fp,char *type_o){
 
@@ -75,7 +75,7 @@ void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int 
 													fwrite(&AuxW->week,sizeof(AuxW->week),1,fp);
 													fwrite(&AuxW->rate_14_day_cases,sizeof(AuxW->rate_14_day_cases),1,fp);
 													fwrite(&AuxW->comulative_count_cases,sizeof(AuxW->comulative_count_cases),1,fp);
-												}
+												}	
 											}else{
 												if(strcmp(type_o,"csv") == 0){
 													fprintf(fp,"%s,",Aux->name);

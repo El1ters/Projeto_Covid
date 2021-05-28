@@ -49,7 +49,7 @@ Country *BubbleSort(Country *listhead,char *S){
 	return right;
 }
 
-/*Esta função serve para inverter a ordem de dois nós consecutivos de uma dada lista, neste caso da lista principal ->
+/*Esta função serve para trocar a ordem de dois nós consecutivos de uma dada lista, neste caso da lista principal ->
 -> recebe como argumentos dois ponteiros para um estrutura do tipo country (corresponderão a dois nós consecutivos da lista
 principal) e dá retorno de "righ" (que será a cabeça do nosso nó que agora ficou em primeiro lugar ao nível da ordenção efetuada)*/
 Country *SwitchNode(Country *left,Country *right){
