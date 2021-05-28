@@ -5,16 +5,20 @@ os parâmetros da linha de comandos*/
 void CommandLine(int argc, char *argv[])
 {
     /*Inicialização das variáveis do tipo char da linha de comandos */
-    int opt=0;
-    char L[10] = "all", S[10] = "alfa", D[10] = "none" , P[10] = "none", i[10] = "0", o[10] = "0";
+    int opt = 0;
+    char L[10] = "all", S[10] = "alfa", D[10] = "none" , P[10] = "none", *i = NULL, *o = NULL;
     int year[2] = {0,0};
     int week[2] = {0,0};
     int flag;
     int date[2] = {0};
     char aux[10];
     int population = 0;
+    char *type_i = NULL,*type_o = NULL;
+    FILE *fp,*fp1;
+    int n;
+    char line[128];
 
-    while((opt = getopt(argc, argv,"hL:S:D:P:i:o: ")) != -1)
+    while((opt = getopt(argc, argv,"hL:S:D:P:i:o:")) != -1)
     {
 
         switch (opt)
@@ -32,7 +36,7 @@ void CommandLine(int argc, char *argv[])
 
         case 'S':
             optind--;
-            for(flag =0;optind < argc && (*argv[optind] != '-');optind++,flag++){
+            for(flag = 0;optind < argc && (*argv[optind] != '-');optind++,flag++){
                 switch(flag){
                     case 0:
                         strcpy(S,argv[optind]);
@@ -73,82 +77,143 @@ void CommandLine(int argc, char *argv[])
                         }
                         break;
                 }
-
             }
-
-
             break;
 
         case 'i':
-            strcpy(i,optarg);
+            i = optarg;
+            n = strlen(i);
+            type_i = i + n;
+            while(0 < n && i[--n] != '.');
+            if(i[n] == '.'){
+                type_i = i + n + 1;
+            }
             break;
 
         case 'o':
-            strcpy(o,optarg);
+           o = optarg;
+           n = strlen(o);
+           type_o = o + n;
+           while(0 < n && o[--n] != '.');
+           if(o[n] == '.'){
+                type_o = o + n + 1; 
+           }
             break;
-        }
 
+        default:
+            exit(0);
+            break;
+
+        }
     }
+    if(i == NULL|| o == NULL){
+        printf("please insert a input and an output");
+        exit(EXIT_FAILURE);
+    }
+
     Country *ListHead = NULL;
     /*Criação de um ponteiro que aponta para o tipo de estrutura Country - vai servir para
     criar novos nós da lista principal que, por sua vez, contém os diferentes países*/
     Country *newcountry;
 
-    FILE *fp;
-    /*Abertura para leitura do ficheiro criado que irá ter o título indicado*/
-     if((fp = fopen(i,"r")) == NULL){
-        printf("could not open the file");
-        exit(EXIT_FAILURE);
-     }
-
-    char line[128];
-    /*Usa-se um fgets para ignorar o cabeçalho*/
-    fgets(line,128,fp);
-    /*Este ciclo while que se segue vai percorrer linha a linha todo o ficheiro fornecido pelo professor e irá criar um
-    novo nó da lista principal (a que contém os nomes dos países) sempre que encontarar uma linha com um nome de um
-    país para o qual ainda não existe nó -> deste modo temos assim a nossa Lista principal criada*/
-    while(fgets(line,128,fp) != NULL){
-        if((newcountry = ReadFile(&ListHead,line)) != NULL){
-            ListHead = CriaListaPorBaixo(ListHead,newcountry);
-        }
-
-    }
-        fclose(fp);
-    /*Estes if que se seguem indicam a forma como o programa reagirá perante as diferentes opções introduzidas
-    pelo utilizador na linha de comandos -> esta diferentes opções podem ser consultadas mais abaixo na função
-    "ComandLineHelp"*/
-    if(strcmp(L,"all") == 0 ||
-       strcmp(L,"Africa") == 0 ||
-       strcmp(L,"Asia") == 0 ||
-       strcmp(L,"Europe") == 0||
-       strcmp(L,"Oceania") == 0 ||
-       strcmp(L,"America") == 0){
-        if (strcmp (S,"alfa") == 0 || strcmp (S,"pop") == 0){
-            ListHead = BubbleSort(ListHead,S); //-S alfa -S pop
-        }
-        else if (strcmp (S,"inf") == 0 || strcmp (S,"dea") == 0){ 
-            ListHead = SortTotal(ListHead,S,date); // -S inf date -S dea Date
-        }
-        else{
-            printf("Erro: comando inserido inválido. \n");
-            exit(0);
-        }
-
-        if((fp =fopen(o,"w")) == NULL){
+    if(strcmp(type_i,"csv") == 0){
+        /*Abertura para leitura do ficheiro criado que irá ter o título indicado*/
+        if((fp = fopen(i,"r")) == NULL){
             printf("could not open the file");
             exit(EXIT_FAILURE);
         }
-        PrintLista(ListHead,L,D,P,population,year,week,fp);
+        /*Usa-se um fgets para ignorar o cabeçalho*/
+        fgets(line,127,fp);
+        /*Este ciclo while que se segue vai percorrer linha a linha todo o ficheiro fornecido pelo professor e irá criar um
+        novo nó da lista principal (a que contém os nomes dos países) sempre que encontarar uma linha com um nome de um
+        país para o qual ainda não existe nó -> deste modo temos assim a nossa Lista principal criada*/
+        while(fgets(line,127,fp) != NULL){
+            if((newcountry = ReadFile(&ListHead,line)) != NULL){
+                ListHead = CriaListaPorBaixo(ListHead,newcountry);
+            }
+        }
+        fclose(fp);  
+    }else{
+        DatAux info;
+        if((fp = fopen(i,"rb")) == NULL){
+            printf("could not open the file");
+            exit(EXIT_FAILURE);
+        }
+
+        if((fp1 = fopen(o,"wb")) == NULL){
+            printf("could not open the file");
+            exit(EXIT_FAILURE);
+        }
+        while(fread(&(info.name),sizeof(info.name),1,fp) == 1 &&
+              fread(&(info.country_code),sizeof(info.country_code),1,fp) == 1 &&
+              fread(&(info.continent),sizeof(info.continent),1,fp) == 1 &&
+              fread(&(info.population),sizeof(info.population),1,fp) == 1 && 
+              fread(&(info.indicator),sizeof(info.indicator),1,fp) == 1 &&
+              fread(&(info.weekly_count),sizeof(info.weekly_count),1,fp) == 1 &&
+              fread(&(info.year),sizeof(info.year),1,fp) == 1 &&
+              fread(&(info.week),sizeof(info.week),1,fp) == 1 &&
+              fread(&(info.rate_14_day),sizeof(info.rate_14_day),1,fp) == 1 &&
+              fread(&(info.comulative_count),sizeof(info.comulative_count),1,fp) == 1){
+
+            fprintf(fp1,"%s,",info.name);
+            fprintf(fp1,"%s,",info.country_code);
+            fprintf(fp1,"%s,",info.continent);
+            fprintf(fp1,"%d,",info.population);
+            fprintf(fp1,"%s,",info.indicator);
+            fprintf(fp1,"%d,",info.weekly_count);
+            fprintf(fp1,"%d-",info.year);
+            fprintf(fp1,"%d,",info.week);
+            fprintf(fp1,"%.3f,",info.rate_14_day);
+            fprintf(fp1,"%d\n",info.comulative_count);
+        }
+        
+        fclose(fp1);
         fclose(fp);
     }
-    else{
-        printf("Erro: comando inserido inválido. \n");
-        CommandLineHelp();
-        exit(0);
+    
+    /*Estes if que se seguem indicam a forma como o programa reagirá perante as diferentes opções introduzidas
+    pelo utilizador na linha de comandos -> esta diferentes opções podem ser consultadas mais abaixo na função
+    "ComandLineHelp"*/
+    if(strcmp(type_i,"csv") == 0){
+        if(strcmp(L,"all") == 0 ||
+            strcmp(L,"Africa") == 0 ||
+            strcmp(L,"Asia") == 0 ||
+            strcmp(L,"Europe") == 0||
+            strcmp(L,"Oceania") == 0 ||
+            strcmp(L,"America") == 0){
+            if (strcmp (S,"alfa") == 0 || strcmp (S,"pop") == 0){
+                ListHead = BubbleSort(ListHead,S); //-S alfa -S pop
+            }
+            else if (strcmp (S,"inf") == 0 || strcmp (S,"dea") == 0){ 
+                ListHead = SortTotal(ListHead,S,date); // -S inf date -S dea Date
+            }
+            else{
+                printf("Erro: comando inserido inválido.\n");
+                exit(0);
+            }
+                if(strcmp(type_o,"csv") == 0){
+                    if((fp = fopen(o,"w")) == NULL){
+                        printf("could not open the file");
+                        exit(EXIT_FAILURE);
+                    }
+                    PrintLista(ListHead,L,D,P,population,year,week,fp,type_o);
+                    fclose(fp);
+                }else{
+                    if((fp = fopen(o,"wb")) == NULL){
+                        printf("could not open the file");
+                        exit(EXIT_FAILURE);
+                    }
+                    PrintLista(ListHead,L,D,P,population,year,week,fp,type_o);
+                    fclose(fp);
+            }
+        
+        }else{
+            printf("Erro: comando inserido inválido.\n");
+            CommandLineHelp();
+            exit(0);
+        }
+        free_list(ListHead);
     }
-    free_list(ListHead);
-   
-
 }
 
 /*Função para a Linhas de Comandos - ajuda*/

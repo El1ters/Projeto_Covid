@@ -7,6 +7,18 @@
 #include <string.h>
 #include <getopt.h>
 #include <unistd.h>
+	typedef struct _DatAux{
+		char name[30];
+		char country_code[4];
+		char continent[15];
+		int population;
+		char indicator[7];
+		int weekly_count;
+		int year;
+		int week;
+		float rate_14_day;
+		int comulative_count;
+	}DatAux;
 
 /*Estrutura de uma lista terciária -> Lista esta que irá conter todas as semanas e, respetivamente, os seus dados*/
 typedef struct _Week{
@@ -50,7 +62,7 @@ Week *CreateWeekStruct();
 void StoreContentCountry(char content[9][70],Country *country);
 void StoreContentWeek(Country *listhead,char *string,int year,int week,int content1,float content2,int content3);
 Country *CriaListaPorBaixo(Country *listhead,Country *country_inserted);
-void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2], FILE *fp);
+void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2], FILE *fp,char *type_o);
 int CompareName(Country *listhead,char *string);
 int CompareYear(Country *listhead,int year,char *string1);
 int CompareWeek(Country *listhead,int year,int week,char *string2);

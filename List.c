@@ -28,7 +28,7 @@ da respetiva informção -> esta função recebe como argumentos um ponteiro par
 da lista principal), vários ponteiros do tipo char (correspondem às variávéis inicializadas na linha de comandos (que contém os
 dados que o utilzador introduziu na linha de comandos relativamente ao -L, -D e -P)) e ainda dois vetores de inteiros
 (que correspondem ao número total de semanas dos anos considerados no ficheiro )*/
-void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2], FILE *fp){
+void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int week[2], FILE *fp,char *type_o){
 
 	Country *Aux;
 	Year *AuxY;
@@ -53,27 +53,53 @@ void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int 
 									if((strcmp(P,"date") == 0  && AuxW->week == week[0]) || strcmp(P,"date") != 0 ){
 										if((CompareDates(week,year,AuxY,AuxW) == 1 && strcmp(P,"dates") == 0) || strcmp(P,"dates") != 0){
 											if(flag == 0){
-												fprintf(fp,"%s,",Aux->name);
-												fprintf(fp,"%s,",Aux->country_code);
-												fprintf(fp,"%s,",Aux->continent);
-												fprintf(fp,"%d,",Aux->population);
-												fprintf(fp,"cases,");
-												fprintf(fp,"%d,",AuxW->weekly_count_cases);
-												fprintf(fp,"%d-",AuxY->year);
-												fprintf(fp,"%d,",AuxW->week);
-												fprintf(fp,"%.3f,",AuxW->rate_14_day_cases);
-												fprintf(fp,"%d\n",AuxW->comulative_count_cases);
+												if(strcmp(type_o,"csv") == 0){
+													fprintf(fp,"%s,",Aux->name);
+													fprintf(fp,"%s,",Aux->country_code);
+													fprintf(fp,"%s,",Aux->continent);
+													fprintf(fp,"%d,",Aux->population);
+													fprintf(fp,"cases,");
+													fprintf(fp,"%d,",AuxW->weekly_count_cases);
+													fprintf(fp,"%d-",AuxY->year);
+													fprintf(fp,"%d,",AuxW->week);
+													fprintf(fp,"%.3f,",AuxW->rate_14_day_cases);
+													fprintf(fp,"%d\n",AuxW->comulative_count_cases);
+												}else{
+													fwrite(Aux->name,1,sizeof(Aux->name),fp);
+													fwrite(Aux->country_code,1,sizeof(Aux->country_code),fp);
+													fwrite(Aux->continent,1,sizeof(Aux->continent),fp);
+													fwrite(&Aux->population,1,sizeof(int),fp);
+													fwrite("cases",sizeof(char),7,fp);
+													fwrite(&AuxW->weekly_count_cases,sizeof(AuxW->weekly_count_cases),1,fp);
+													fwrite(&AuxY->year,sizeof(AuxY->year),1,fp);
+													fwrite(&AuxW->week,sizeof(AuxW->week),1,fp);
+													fwrite(&AuxW->rate_14_day_cases,sizeof(AuxW->rate_14_day_cases),1,fp);
+													fwrite(&AuxW->comulative_count_cases,sizeof(AuxW->comulative_count_cases),1,fp);
+												}	
 											}else{
-												fprintf(fp,"%s,",Aux->name);
-												fprintf(fp,"%s,",Aux->country_code);
-												fprintf(fp,"%s,",Aux->continent);
-												fprintf(fp,"%d,",Aux->population);
-												fprintf(fp,"deaths,");
-												fprintf(fp,"%d,",AuxW->weekly_count_deaths);
-												fprintf(fp,"%d-",AuxY->year);
-												fprintf(fp,"%d,",AuxW->week);
-												fprintf(fp,"%.3f,",AuxW->rate_14_day_deaths);
-												fprintf(fp,"%d\n",AuxW->comulative_count_deaths);
+												if(strcmp(type_o,"csv") == 0){
+													fprintf(fp,"%s,",Aux->name);
+													fprintf(fp,"%s,",Aux->country_code);
+													fprintf(fp,"%s,",Aux->continent);
+													fprintf(fp,"%d,",Aux->population);
+													fprintf(fp,"deaths,");
+													fprintf(fp,"%d,",AuxW->weekly_count_deaths);
+													fprintf(fp,"%d-",AuxY->year);
+													fprintf(fp,"%d,",AuxW->week);
+													fprintf(fp,"%.3f,",AuxW->rate_14_day_deaths);
+													fprintf(fp,"%d\n",AuxW->comulative_count_deaths);
+												}else{
+													fwrite(Aux->name,1,sizeof(Aux->name),fp);
+													fwrite(Aux->country_code,1,sizeof(Aux->country_code),fp);
+													fwrite(Aux->continent,1,sizeof(Aux->continent),fp);
+													fwrite(&Aux->population,1,sizeof(int),fp);
+													fwrite("deaths",sizeof(char),7,fp);
+													fwrite(&AuxW->weekly_count_deaths,sizeof(AuxW->weekly_count_deaths),1,fp);
+													fwrite(&AuxY->year,sizeof(AuxY->year),1,fp);
+													fwrite(&AuxW->week,sizeof(AuxW->week),1,fp);
+													fwrite(&AuxW->rate_14_day_deaths,sizeof(AuxW->rate_14_day_deaths),1,fp);
+													fwrite(&AuxW->comulative_count_deaths,sizeof(AuxW->comulative_count_deaths),1,fp);
+												}
 											}
 										}
 									}
@@ -82,27 +108,53 @@ void PrintLista(Country *listhead,char *L,char *D,char *P,int n,int year[2],int 
 									if((strcmp(P,"date") == 0  && AuxW->week == week[0]) || strcmp(P,"date") != 0 ){
 										if((CompareDates(week,year,AuxY,AuxW) == 1 && strcmp(P,"dates") == 0) || strcmp(P,"dates") != 0){
 											if((flag == 0 && strcmp(D,"dea") != 0 && strcmp(D,"raciodea") != 0) || (strcmp(D,"inf") == 0 && flag == 0) || (strcmp(D,"racioinf") == 0 && flag == 0)){
-												fprintf(fp,"%s,",Aux->name);
-												fprintf(fp,"%s,",Aux->country_code);
-												fprintf(fp,"%s,",Aux->continent);
-												fprintf(fp,"%d,",Aux->population);
-												fprintf(fp,"cases,");
-												fprintf(fp,"%d,",AuxW->weekly_count_cases);
-												fprintf(fp,"%d-",AuxY->year);
-												fprintf(fp,"%d,",AuxW->week);
-												fprintf(fp,"%.3f,",AuxW->rate_14_day_cases);
-												fprintf(fp,"%d\n",AuxW->comulative_count_cases);
+												if(strcmp(type_o,"csv") == 0){
+													fprintf(fp,"%s,",Aux->name);
+													fprintf(fp,"%s,",Aux->country_code);
+													fprintf(fp,"%s,",Aux->continent);
+													fprintf(fp,"%d,",Aux->population);
+													fprintf(fp,"cases,");
+													fprintf(fp,"%d,",AuxW->weekly_count_cases);
+													fprintf(fp,"%d-",AuxY->year);
+													fprintf(fp,"%d,",AuxW->week);
+													fprintf(fp,"%.3f,",AuxW->rate_14_day_cases);
+													fprintf(fp,"%d\n",AuxW->comulative_count_cases);
+												}else{
+													fwrite(Aux->name,1,sizeof(Aux->name),fp);
+													fwrite(Aux->country_code,1,sizeof(Aux->country_code),fp);
+													fwrite(Aux->continent,1,sizeof(Aux->continent),fp);
+													fwrite(&Aux->population,1,sizeof(Aux->population),fp);
+													fwrite("cases",sizeof(char),7,fp);
+													fwrite(&AuxW->weekly_count_cases,sizeof(AuxW->weekly_count_cases),1,fp);
+													fwrite(&AuxY->year,sizeof(AuxY->year),1,fp);
+													fwrite(&AuxW->week,sizeof(AuxW->week),1,fp);
+													fwrite(&AuxW->rate_14_day_cases,sizeof(AuxW->rate_14_day_cases),1,fp);
+													fwrite(&AuxW->comulative_count_cases,sizeof(AuxW->comulative_count_cases),1,fp);
+												}
 											}else if((flag == 1 && strcmp(D,"inf") != 0 && strcmp(D,"racioinf") != 0)){
-												fprintf(fp,"%s,",Aux->name);
-												fprintf(fp,"%s,",Aux->country_code);
-												fprintf(fp,"%s,",Aux->continent);
-												fprintf(fp,"%d,",Aux->population);
-												fprintf(fp,"deaths,");
-												fprintf(fp,"%d,",AuxW->weekly_count_deaths);
-												fprintf(fp,"%d-",AuxY->year);
-												fprintf(fp,"%d,",AuxW->week);
-												fprintf(fp,"%.3f,",AuxW->rate_14_day_deaths);
-												fprintf(fp,"%d\n",AuxW->comulative_count_deaths);
+												if(strcmp(type_o,"csv") == 0){
+													fprintf(fp,"%s,",Aux->name);
+													fprintf(fp,"%s,",Aux->country_code);
+													fprintf(fp,"%s,",Aux->continent);
+													fprintf(fp,"%d,",Aux->population);
+													fprintf(fp,"deaths,");
+													fprintf(fp,"%d,",AuxW->weekly_count_deaths);
+													fprintf(fp,"%d-",AuxY->year);
+													fprintf(fp,"%d,",AuxW->week);
+													fprintf(fp,"%.3f,",AuxW->rate_14_day_deaths);
+													fprintf(fp,"%d\n",AuxW->comulative_count_deaths);
+												}else{
+													fwrite(Aux->name,1,sizeof(Aux->name),fp);
+													fwrite(Aux->country_code,1,sizeof(Aux->country_code),fp);
+													fwrite(Aux->continent,1,sizeof(Aux->continent),fp);
+													fwrite(&Aux->population,1,sizeof(int),fp);
+													fwrite("deaths",sizeof(char),7,fp);
+													fwrite(&AuxW->weekly_count_deaths,sizeof(AuxW->weekly_count_deaths),1,fp);
+													fwrite(&AuxY->year,sizeof(AuxY->year),1,fp);
+													fwrite(&AuxW->week,sizeof(AuxW->week),1,fp);
+													fwrite(&AuxW->rate_14_day_deaths,sizeof(AuxW->rate_14_day_deaths),1,fp);
+													fwrite(&AuxW->comulative_count_deaths,sizeof(AuxW->comulative_count_deaths),1,fp);
+												}
 											}
 										}
 									}
@@ -137,5 +189,4 @@ void free_list(Country *listhead){
 		}
 		free(Aux);
 	}
-
 }
