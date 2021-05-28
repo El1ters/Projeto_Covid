@@ -122,15 +122,17 @@ void CommandLine(int argc, char *argv[])
             printf("could not open the file");
             exit(EXIT_FAILURE);
         }
-        /*Usa-se um fgets para ignorar o cabeçalho*/
-        fgets(line,127,fp);
+        int jump = 0;
         /*Este ciclo while que se segue vai percorrer linha a linha todo o ficheiro fornecido pelo professor e irá criar um
         novo nó da lista principal (a que contém os nomes dos países) sempre que encontarar uma linha com um nome de um
         país para o qual ainda não existe nó -> deste modo temos assim a nossa Lista principal criada*/
         while(fgets(line,127,fp) != NULL){
-            if((newcountry = ReadFile(&ListHead,line)) != NULL){
-                ListHead = CriaListaPorBaixo(ListHead,newcountry);
+            if( jump >= 1){
+                if((newcountry = ReadFile(&ListHead,line)) != NULL){
+                    ListHead = CriaListaPorBaixo(ListHead,newcountry);
+                }
             }
+            jump++;
         }
         fclose(fp);  
     }else{
@@ -189,6 +191,7 @@ void CommandLine(int argc, char *argv[])
             }
             else{
                 printf("Erro: comando inserido inválido.\n");
+                CommandLineHelp();
                 exit(0);
             }
                 if(strcmp(type_o,"csv") == 0){
